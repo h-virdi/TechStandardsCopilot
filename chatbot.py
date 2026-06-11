@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 
-from langchain_openai import OpenAIEmbeddings
+from langchain_huggingface import OpenAIEmbeddings
 from langchain_chroma import Chroma
 
 from openai import OpenAI
