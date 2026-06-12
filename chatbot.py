@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 
-from langchain_huggingface import OpenAIEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 
 from openai import OpenAI
@@ -11,7 +11,7 @@ client = OpenAI()
 
 DB_FOLDER = "vector_db"
 
-embeddings = OpenAIEmbeddings()
+embeddings = HuggingFaceEmbeddings()
 
 db = Chroma(
     persist_directory=DB_FOLDER,

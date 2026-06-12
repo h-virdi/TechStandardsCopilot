@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv
 
-from langchain_openai import OpenAIEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 
 from utils import load_pdf, split_text
@@ -43,7 +43,7 @@ for filename in os.listdir(PDF_FOLDER):
 
 print(f"Total chunks: {len(all_chunks)}")
 
-embeddings = OpenAIEmbeddings()
+embeddings = HuggingFaceEmbeddings()
 
 db = Chroma.from_texts(
     texts=all_chunks,
