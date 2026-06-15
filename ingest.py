@@ -1,5 +1,6 @@
 import os
 import pytesseract
+import shutil
 
 from dotenv import load_dotenv
 
@@ -57,7 +58,7 @@ for filename in os.listdir(PDF_FOLDER):
 print(f"Total chunks: {len(all_chunks)}")
 
 embeddings = HuggingFaceEmbeddings()
-
+shutil.rmtree(DB_FOLDER, ignore_errors=True)
 db = Chroma.from_texts(
     texts=all_chunks,
     embedding=embeddings,
