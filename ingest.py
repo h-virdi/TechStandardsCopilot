@@ -12,7 +12,7 @@ from pdf2image import convert_from_path
 
 load_dotenv()
 
-pytesseract.pytesseract.tesseract_cmd = r"C:\Users\HARVIR\AppData\Local\Tesseract-OCR\tesseract.exe"
+pytesseract.pytesseract.tesseract_cmd = r"C:\Users\HARVIR\AppData\Local\Programs\Tesseract-OCR\tesseract.exe"
 
 PDF_FOLDER = "standards"
 DB_FOLDER = "vector_db"
