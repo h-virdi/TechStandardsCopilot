@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 
-from utils import load_pdf, split_text
+from utils import load_pdf, split_text, clean_text
 
 from pdf2image import convert_from_path
 
@@ -21,8 +21,6 @@ all_chunks = []
 all_metadatas = []
 
 print("Loading PDFs...")
-
-print(os.listdir(PDF_FOLDER))
 
 for filename in os.listdir(PDF_FOLDER):
 
@@ -42,29 +40,29 @@ for filename in os.listdir(PDF_FOLDER):
         text += f"\n--- Page {i+1} ---\n"
         text += t
 
-    print(text[:100])
-#     chunks = split_text(text)
+    text = clean_text(text)
+    chunks = split_text(text)
 
-#     for i, chunk in enumerate(chunks):
+    for i, chunk in enumerate(chunks):
 
-#         all_chunks.append(chunk)
+        all_chunks.append(chunk)
 
-#         all_metadatas.append(
-#             {
-#                 "source": filename,
-#                 "chunk": i
-#             }
-#         )
+        all_metadatas.append(
+            {
+                "source": filename,
+                "chunk": i
+            }
+        )
 
-# print(f"Total chunks: {len(all_chunks)}")
+print(f"Total chunks: {len(all_chunks)}")
 
-# embeddings = HuggingFaceEmbeddings()
+embeddings = HuggingFaceEmbeddings()
 
-# db = Chroma.from_texts(
-#     texts=all_chunks,
-#     embedding=embeddings,
-#     metadatas=all_metadatas,
-#     persist_directory=DB_FOLDER
-# )
+db = Chroma.from_texts(
+    texts=all_chunks,
+    embedding=embeddings,
+    metadatas=all_metadatas,
+    persist_directory=DB_FOLDER
+)
 
-# print("Vector database created.")
+print("Vector database created.")
