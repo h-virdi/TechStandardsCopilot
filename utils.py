@@ -22,8 +22,8 @@ def load_pdf(filepath):
 def split_text(text):
 
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1000,
-        chunk_overlap=200
+        chunk_size=300,
+        chunk_overlap=50
     )
 
     return splitter.split_text(text)
@@ -61,16 +61,20 @@ def remove_repeated_lines(text):
     return '. '.join(cleaned)
 
 def remove_noise_tokens(text):
+    
     words = text.split()
-    cleaned_words = []
+
+    cleaned = []
     for w in words:
         if (
             len(w) > 2
             or any(c.isdigit() for c in w)
-            or w.lower() in ['&', '%']
+            or w.lower() in ["and", "the", "for", "with"]
         ):
-            cleaned_words.append(w)
-    return ' '.join(cleaned_words)
+            cleaned.append(w)
+
+    return " ".join(cleaned)
+
 
 def fix_section_numbers(text):
     text = re.sub(r'(\d+)\.\s+(\d+)', r'\1.\2', text)
@@ -100,6 +104,9 @@ def clean_ocr_text(text):
     text = html.unescape(text)
     text = re.sub(r'-\n', '', text)
     text = re.sub(r'\n+', ' ', text)
+    text = re.sub(r'Page\s+\d+.*?(?=\s|$)', '', text)
+    text = re.sub(r'(\d+)\.\s+(\d+)', r'\1.\2', text)
+    text = re.sub(r'\b[A-Z0-9\-]{4,}\s\d+\b', '', text)
     text = fix_section_numbers(text)
     text = remove_symbol_noise(text)
     text = remove_noise_tokens(text)

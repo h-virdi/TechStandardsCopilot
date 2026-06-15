@@ -33,10 +33,15 @@ Rules:
 
 def ask_question(question):
 
+    question = embeddings.embed_query(question)
     docs = db.similarity_search(
         question,
         k=5
     )
+
+    if not docs:
+        return "I could not find this information."
+    
 
     context = ""
 
