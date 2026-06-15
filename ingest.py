@@ -58,7 +58,7 @@ for filename in os.listdir(PDF_FOLDER):
 print(f"Total chunks: {len(all_chunks)}")
 
 embeddings = HuggingFaceEmbeddings()
-shutil.rmtree(DB_FOLDER, ignore_errors=True)
+shutil.rmtree(DB_FOLDER, ignore_errors=True) # Clears existing database
 db = Chroma.from_texts(
     texts=all_chunks,
     embedding=embeddings,
