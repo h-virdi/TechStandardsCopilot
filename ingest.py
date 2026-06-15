@@ -41,29 +41,28 @@ for filename in os.listdir(PDF_FOLDER):
         text += t
 
     text = clean_ocr_text(text)
-    print(text[:1000])  # Print the first 500 characters of the cleaned text for verification
-#     chunks = split_text(text)
+    chunks = split_text(text)
 
-#     for i, chunk in enumerate(chunks):
+    for i, chunk in enumerate(chunks):
 
-#         all_chunks.append(chunk)
+        all_chunks.append(chunk)
 
-#         all_metadatas.append(
-#             {
-#                 "source": filename,
-#                 "chunk": i
-#             }
-#         )
+        all_metadatas.append(
+            {
+                "source": filename,
+                "chunk": i
+            }
+        )
 
-# print(f"Total chunks: {len(all_chunks)}")
+print(f"Total chunks: {len(all_chunks)}")
 
-# embeddings = HuggingFaceEmbeddings()
+embeddings = HuggingFaceEmbeddings()
 
-# db = Chroma.from_texts(
-#     texts=all_chunks,
-#     embedding=embeddings,
-#     metadatas=all_metadatas,
-#     persist_directory=DB_FOLDER
-# )
+db = Chroma.from_texts(
+    texts=all_chunks,
+    embedding=embeddings,
+    metadatas=all_metadatas,
+    persist_directory=DB_FOLDER
+)
 
-# print("Vector database created.")
+print("Vector database created.")
