@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 
-from utils import load_pdf, split_text, clean_text
+from utils import load_pdf, split_text, clean_ocr_text
 
 from pdf2image import convert_from_path
 
@@ -40,7 +40,7 @@ for filename in os.listdir(PDF_FOLDER):
         text += f"\n--- Page {i+1} ---\n"
         text += t
 
-    text = clean_text(text)
+    text = clean_ocr_text(text)
     chunks = split_text(text)
 
     for i, chunk in enumerate(chunks):
