@@ -1,8 +1,23 @@
-from pypdf import PdfReader
+from langchain_chroma import Chroma
+from langchain_huggingface import HuggingFaceEmbeddings
 
-reader = PdfReader("standards/DNV_Cybersec.pdf")
-print("Pages:", len(reader.pages))
-for i, page in enumerate(reader.pages):
-    text = page.extract_text()
-    print(f"\nPAGE {i+1}")
-    print(repr(text[:300] if text else text))
+
+DB_FOLDER = "vector_db"
+embeddings = HuggingFaceEmbeddings()
+
+db = Chroma(
+    persist_directory=DB_FOLDER,
+    embedding_function=embeddings
+)
+def debug_retrieval(query):
+    docs = db.similarity_search(query, k=3)
+
+    for doc in docs:
+        print("-----")
+        print(doc.page_content)
+        print(doc.metadata)
+
+
+query = "What is the objective of the cyber security section?"
+
+debug_retrieval(query)
