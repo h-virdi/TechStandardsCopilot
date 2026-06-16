@@ -32,16 +32,16 @@ for filename in os.listdir(PDF_FOLDER):
 
     print(f"Processing {filename}")
 
-    # text = load_pdf(filepath)
-    images = convert_from_path(filepath, dpi=300, poppler_path=r"C:\Users\HARVIR\Downloads\Release-26.02.0-0\poppler-26.02.0\Library\bin")
-    text = ""
+    text = load_pdf(filepath)
+    # images = convert_from_path(filepath, dpi=300, poppler_path=r"C:\Users\HARVIR\Downloads\Release-26.02.0-0\poppler-26.02.0\Library\bin")
+    # text = ""
 
-    for i, img in enumerate(images):
-        t = pytesseract.image_to_string(img, config="--oem 3 --psm 6")
-        text += f"\n--- Page {i+1} ---\n"
-        text += t
+    # for i, img in enumerate(images):
+    #     t = pytesseract.image_to_string(img, config="--oem 3 --psm 6")
+    #     text += f"\n--- Page {i+1} ---\n"
+    #     text += t
 
-    text = clean_ocr_text(text)
+    # text = clean_ocr_text(text)
     chunks = split_text(text)
 
     for i, chunk in enumerate(chunks):
