@@ -10,7 +10,7 @@ db = Chroma(
     embedding_function=embeddings
 )
 def debug_retrieval(query):
-    docs = db.similarity_search(query, k=7)
+    docs = db.similarity_search(query, k=3)
 
     for doc in docs:
         print("-----")
@@ -18,6 +18,6 @@ def debug_retrieval(query):
         print(doc.metadata)
 
 
-query = "What are the different types of cybersecurity notations?"
+query = "What documents are needed for certification?"
 
 debug_retrieval(query)
