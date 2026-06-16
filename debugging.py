@@ -18,6 +18,6 @@ def debug_retrieval(query):
         print(doc.metadata)
 
 
-query = "What documents are needed for certification?"
+query = "What are the different types of cybersecurity notations?"
 
 debug_retrieval(query)
