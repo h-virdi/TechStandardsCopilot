@@ -1,7 +1,4 @@
-from unittest import result
-from weakref import ref
-from utils import extract_references
-from click import prompt
+from pydoc import doc
 from unittest import result
 from weakref import ref
 from utils import extract_references
@@ -21,6 +18,7 @@ load_dotenv()
 # client = OpenAI()
 
 DB_FOLDER = "vector_db"
+MAX_REFERENCES = 5
 
 embeddings = HuggingFaceEmbeddings()
 
@@ -35,42 +33,46 @@ db = Chroma(
     embedding_function=embeddings
 )
 
-SYSTEM_PROMPT = """
+# SYSTEM_PROMPT = """
 
-Answer using ONLY the context.
+# Answer using ONLY the context.
 
-If the answer refers to sections (e.g., 3.1.2), explain what those sections contain.
+# If the answer refers to sections (e.g., 3.1.2), explain what those sections contain.
 
-Answer using ONLY the context.
+# Answer using ONLY the context.
 
-If the answer refers to sections (e.g., 3.1.2), explain what those sections contain.
+# If the answer refers to sections (e.g., 3.1.2), explain what those sections contain.
 
-Provide a clear and complete answer.
-Provide a clear and complete answer.
+# Provide a clear and complete answer.
+# Provide a clear and complete answer.
 
-If the answer is not in the context, say:
-"I could not find this information in the loaded standards."
+# If the answer is not in the context, say:
+# "I could not find this information in the loaded standards."
 
-Always cite the source
+# Always cite the source
 
-If the answer is not in the context, say:
-"I could not find this information in the loaded standards."
+# If the answer is not in the context, say:
+# "I could not find this information in the loaded standards."
 
-Always cite the source
+# Always cite the source
 
-"""
+# """
 
 
 def ask_question(question):
-
+    seen_chunks = set()
+    def add_unique(context, doc):
+        if doc.page_content not in seen_chunks:
+            seen_chunks.add(doc.page_content)
+            return doc.page_content + "\n\n"
+        return ""
     # question = embeddings.embed_query(question)
-    # question = embeddings.embed_query(question)
+    # search_query = question + " Cyber secure Essential Advanced notation types classification"
     docs = db.similarity_search(
         question,
-        k=6
-        k=6
+        k=10
     )
-
+    docs = sorted(docs, key=lambda d: len(d.page_content), reverse=True)
     if not docs:
         return "I could not find this information."
     
@@ -83,8 +85,7 @@ def ask_question(question):
 
     for doc in docs:
 
-        context += doc.page_content + "\n\n"        
-        context += doc.page_content + "\n\n"        
+        context += add_unique(context, doc)
 
         if "source" in doc.metadata:
             sources.add(doc.metadata["source"])
@@ -92,27 +93,36 @@ def ask_question(question):
         refs = extract_references(doc.page_content)
         references.update(refs)
 
-    for ref in references:
+    for ref in list(references)[:MAX_REFERENCES]:
         
         more_docs = db.similarity_search(ref, k=2)
 
         for doc in more_docs:
-            context += doc.page_content + "\n\n"
+            context += add_unique(context, doc)
 
     prompt = f"""
 
-{SYSTEM_PROMPT}
 
+Answer using ONLY the context below.
 
-{SYSTEM_PROMPT}
+The answer requires identifying ALL relevant items.
+
+Carefully extract and combine ALL cybersecurity notation variants mentioned in the context.
+
+Return a COMPLETE list.
+Return the answer as a bullet list.
+
+Do NOT return only partial items.
+Do NOT ignore any variants.
 
 Context:
-
 {context}
 
 Question:
-
 {question}
+
+Answer:
+
 """
     inputs = tokenizer(prompt, return_tensors="pt", truncation=True)
     outputs = model.generate(**inputs, max_new_tokens=200)
@@ -132,36 +142,7 @@ Question:
     #         }
     #     ]
     # )
-    inputs = tokenizer(prompt, return_tensors="pt", truncation=True)
-    outputs = model.generate(**inputs, max_new_tokens=200)
-    result = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    source_text = "\n".join(f"- {s}" for s in sources)
 
-    # response = client.chat.completions.create(
-    #     model="gpt-4.1",
-    #     messages=[
-    #         {
-    #             "role": "system",
-    #             "content": SYSTEM_PROMPT
-    #         },
-    #         {
-    #             "role": "user",
-    #             "content": prompt
-    #         }
-    #     ]
-    # )
-
-    # answer = response.choices[0].message.content
-    # answer = response.choices[0].message.content
-
-    # source_text = "\n".join(
-    #     f"- {source}" for source in sources
-    # )
-    # source_text = "\n".join(
-    #     f"- {source}" for source in sources
-    # )
-
-    return result + "\n\nSources:\n" + source_text
     return result + "\n\nSources:\n" + source_text
 
 
