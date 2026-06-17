@@ -15,15 +15,11 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 load_dotenv()
 
 # client = OpenAI()
-# client = OpenAI()
 
 DB_FOLDER = "vector_db"
 MAX_REFERENCES = 5
 
 embeddings = HuggingFaceEmbeddings()
-
-tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-base")
-model = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-base")
 
 tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-base")
 model = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-base")
@@ -41,15 +37,7 @@ db = Chroma(
 
 # Answer using ONLY the context.
 
-# If the answer refers to sections (e.g., 3.1.2), explain what those sections contain.
-
 # Provide a clear and complete answer.
-# Provide a clear and complete answer.
-
-# If the answer is not in the context, say:
-# "I could not find this information in the loaded standards."
-
-# Always cite the source
 
 # If the answer is not in the context, say:
 # "I could not find this information in the loaded standards."
@@ -66,8 +54,6 @@ def ask_question(question):
             seen_chunks.add(doc.page_content)
             return doc.page_content + "\n\n"
         return ""
-    # question = embeddings.embed_query(question)
-    # search_query = question + " Cyber secure Essential Advanced notation types classification"
     docs = db.similarity_search(
         question,
         k=10
@@ -80,7 +66,6 @@ def ask_question(question):
     context = ""
 
     sources = set()
-    references = set()
     references = set()
 
     for doc in docs:
