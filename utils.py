@@ -4,6 +4,11 @@ import re
 import html
 
 
+def extract_references(text):
+    # Matches patterns like 3.1.2 or 4.2
+    return re.findall(r'\b\d+(?:\.\d+)+\b', text)
+
+
 def load_pdf(filepath):
 
     reader = PdfReader(filepath)
@@ -22,7 +27,7 @@ def load_pdf(filepath):
 def split_text(text):
 
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=500,
+        chunk_size=400,
         chunk_overlap=100
     )
 
