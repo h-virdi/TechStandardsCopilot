@@ -2,6 +2,10 @@ from unittest import result
 from weakref import ref
 from utils import extract_references
 from click import prompt
+from unittest import result
+from weakref import ref
+from utils import extract_references
+from click import prompt
 from dotenv import load_dotenv
 
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -14,10 +18,14 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 load_dotenv()
 
 # client = OpenAI()
+# client = OpenAI()
 
 DB_FOLDER = "vector_db"
 
 embeddings = HuggingFaceEmbeddings()
+
+tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-base")
+model = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-base")
 
 tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-base")
 model = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-base")
@@ -33,7 +41,17 @@ Answer using ONLY the context.
 
 If the answer refers to sections (e.g., 3.1.2), explain what those sections contain.
 
+Answer using ONLY the context.
+
+If the answer refers to sections (e.g., 3.1.2), explain what those sections contain.
+
 Provide a clear and complete answer.
+Provide a clear and complete answer.
+
+If the answer is not in the context, say:
+"I could not find this information in the loaded standards."
+
+Always cite the source
 
 If the answer is not in the context, say:
 "I could not find this information in the loaded standards."
@@ -46,8 +64,10 @@ Always cite the source
 def ask_question(question):
 
     # question = embeddings.embed_query(question)
+    # question = embeddings.embed_query(question)
     docs = db.similarity_search(
         question,
+        k=6
         k=6
     )
 
@@ -59,9 +79,11 @@ def ask_question(question):
 
     sources = set()
     references = set()
+    references = set()
 
     for doc in docs:
 
+        context += doc.page_content + "\n\n"        
         context += doc.page_content + "\n\n"        
 
         if "source" in doc.metadata:
@@ -78,6 +100,9 @@ def ask_question(question):
             context += doc.page_content + "\n\n"
 
     prompt = f"""
+
+{SYSTEM_PROMPT}
+
 
 {SYSTEM_PROMPT}
 
@@ -107,13 +132,36 @@ Question:
     #         }
     #     ]
     # )
+    inputs = tokenizer(prompt, return_tensors="pt", truncation=True)
+    outputs = model.generate(**inputs, max_new_tokens=200)
+    result = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    source_text = "\n".join(f"- {s}" for s in sources)
 
+    # response = client.chat.completions.create(
+    #     model="gpt-4.1",
+    #     messages=[
+    #         {
+    #             "role": "system",
+    #             "content": SYSTEM_PROMPT
+    #         },
+    #         {
+    #             "role": "user",
+    #             "content": prompt
+    #         }
+    #     ]
+    # )
+
+    # answer = response.choices[0].message.content
     # answer = response.choices[0].message.content
 
     # source_text = "\n".join(
     #     f"- {source}" for source in sources
     # )
+    # source_text = "\n".join(
+    #     f"- {source}" for source in sources
+    # )
 
+    return result + "\n\nSources:\n" + source_text
     return result + "\n\nSources:\n" + source_text
 
 
