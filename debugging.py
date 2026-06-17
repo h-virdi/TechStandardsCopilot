@@ -10,7 +10,7 @@ db = Chroma(
     embedding_function=embeddings
 )
 def debug_retrieval(query):
-    docs = db.similarity_search(query, k=7)
+    docs = db.similarity_search(query, k=3)
 
     for doc in docs:
         print("-----")
