@@ -128,6 +128,7 @@ Answer:
     #     ]
     # )
 
+    print(context)
     return result + "\n\nSources:\n" + source_text
 
 
@@ -144,7 +145,6 @@ while True:
     try:
 
         answer = ask_question(question)
-
         print("\n" + answer + "\n")
 
     except Exception as e:
