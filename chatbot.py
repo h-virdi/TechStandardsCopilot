@@ -29,25 +29,52 @@ db = Chroma(
     embedding_function=embeddings
 )
 
-# SYSTEM_PROMPT = """
+CLASS_SOCIETIES = {
+    "1": "DNV",
+    "2": "ABS",
+    "3": "Lloyd's Register",
+    "4": "Bureau Veritas",
+    "5": "RINA"
+}
 
-# Answer using ONLY the context.
+VESSEL_TYPES = {
+    "1": "Tanker",
+    "2": "Bulk Carrier",
+    "3": "Container Ship",
+    "4": "Offshore Support Vessel",
+    "5": "Passenger Vessel",
+    "6": "Gas Carrier",
+    "7": "General Cargo Ship"
+}
 
-# If the answer refers to sections (e.g., 3.1.2), explain what those sections contain.
+REGIONS = {
+    "1": "Singapore",
+    "2": "Norway",
+    "3": "Liberia",
+    "4": "Marshall Islands",
+    "5": "Panama"
+}
 
-# Answer using ONLY the context.
+def get_menu_choice(prompt, options):
+    while True:
+        print(f"\n{prompt}")
+        for key, value in options.items():
+            print(f"{key}. {value}")
+        choice = input("\nOption: ").strip()
+        if choice in options:
+            return options[choice]
+        print("Invalid selection. Please try again.")
 
-# Provide a clear and complete answer.
+def class_society_exists(class_society):
+    results = db.get(include=["metadatas"])
 
-# If the answer is not in the context, say:
-# "I could not find this information in the loaded standards."
+    for metadata in results["metadatas"]:
+        source = metadata.get("source", "").upper()
+        if class_society.upper() in source:
+            return True
+    return False
 
-# Always cite the source
-
-# """
-
-
-def ask_question(question):
+def ask_question(question, vessel_context=None):
     seen_chunks = set()
     def add_unique(context, doc):
         if doc.page_content not in seen_chunks:
@@ -64,6 +91,17 @@ def ask_question(question):
     
 
     context = ""
+    if vessel_context is not None:
+        vessel_context_text = f"""
+        Region: {vessel_context['region']}
+        Vessel Type: {vessel_context['vessel_type']}
+        Classification Society: {vessel_context['classification_society']}
+        """
+    else:
+        vessel_context_text = """
+        General standards inquiry.
+        No vessel-specific information supplied.
+        """
 
     sources = set()
     references = set()
@@ -98,7 +136,10 @@ Return the answer as a bullet list.
 Do NOT return only partial items.
 Do NOT ignore any variants.
 
-Context:
+Vessel Information:
+{vessel_context_text}
+
+Standards Context:
 {context}
 
 Question:
@@ -112,26 +153,37 @@ Answer:
     result = tokenizer.decode(outputs[0], skip_special_tokens=True)
     source_text = "\n".join(f"- {s}" for s in sources)
 
-    # response = client.chat.completions.create(
-    #     model="gpt-4.1",
-    #     messages=[
-    #         {
-    #             "role": "system",
-    #             "content": SYSTEM_PROMPT
-    #         },
-    #         {
-    #             "role": "user",
-    #             "content": prompt
-    #         }
-    #     ]
-    # )
-
     print(context)
     return result + "\n\nSources:\n" + source_text
 
 
-print("Cybersecurity Standards Chatbot")
+print("Technical Standards Copilot")
 print("Type 'exit' to quit.\n")
+
+print("Query Type:")
+print("1. General Standards Inquiry")
+print("2. Vessel-Specific Requirements")
+
+query_type = ""
+
+while query_type not in ["1", "2"]:
+    query_type = input("\nOption: ").strip()
+
+vessel_context = None
+
+if query_type == "2":
+    region = get_menu_choice("Select Region/Flag State:", REGIONS)
+    vessel_type = get_menu_choice("Select Vessel Type:", VESSEL_TYPES)
+    while True:
+        class_society = get_menu_choice("Select Classification Society", CLASS_SOCIETIES)
+        if class_society_exists(class_society):
+            break
+        else:
+            print(
+                f"\nNo documents have been loaded for "
+                f"{class_society}.\n"
+                "Please choose a supported classification society."
+            )
 
 while True:
 
@@ -142,7 +194,7 @@ while True:
 
     try:
 
-        answer = ask_question(question)
+        answer = ask_question(question, vessel_context)
         print("\n" + answer + "\n")
 
     except Exception as e:
