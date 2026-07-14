@@ -29,6 +29,42 @@ db = Chroma(
     embedding_function=embeddings
 )
 
+CLASS_SOCIETIES = {
+    "1": "DNV",
+    "2": "ABS",
+    "3": "Lloyd's Register",
+    "4": "Bureau Veritas",
+    "5": "RINA"
+}
+
+VESSEL_TYPES = {
+    "1": "Tanker",
+    "2": "Bulk Carrier",
+    "3": "Container Ship",
+    "4": "Offshore Support Vessel",
+    "5": "Passenger Vessel",
+    "6": "Gas Carrier",
+    "7": "General Cargo Ship"
+}
+
+REGIONS = {
+    "1": "Singapore",
+    "2": "Norway",
+    "3": "Liberia",
+    "4": "Marshall Islands",
+    "5": "Panama"
+}
+
+def get_menu_choice(prompt, options):
+    while True:
+        print(f"\n{prompt}")
+        for key, value in options.items():
+            print(f"{key}. {value}")
+        choice = input("\nOption: ").strip()
+        if choice in options:
+            return options[choice]
+        print("Invalid selection. Please try again.")
+
 def class_society_exists(class_society):
     results = db.get(include=["metadatas"])
 
@@ -55,11 +91,17 @@ def ask_question(question, vessel_context=None):
     
 
     context = ""
-    vessel_context_text = f"""
-    Region: {vessel_context['region']}
-    Vessel Type: {vessel_context['vessel_type']}
-    Classification Society: {vessel_context['classification_society']}
-    """
+    if vessel_context is not None:
+        vessel_context_text = f"""
+        Region: {vessel_context['region']}
+        Vessel Type: {vessel_context['vessel_type']}
+        Classification Society: {vessel_context['classification_society']}
+        """
+    else:
+        vessel_context_text = """
+        General standards inquiry.
+        No vessel-specific information supplied.
+        """
 
     sources = set()
     references = set()
@@ -113,91 +155,6 @@ Answer:
 
     print(context)
     return result + "\n\nSources:\n" + source_text
-    def add_unique(context, doc):
-        if doc.page_content not in seen_chunks:
-            seen_chunks.add(doc.page_content)
-            return doc.page_content + "\n\n"
-        return ""
-    search_query = question
-    if vessel_context:
-        search_query += f"""
-        {vessel_context['vessel_type']} 
-        {vessel_context['classification_society']}
-        {vessel_context['region']}
-        """
-    docs = db.similarity_search(
-        search_query,
-        k=10
-    )
-    docs = sorted(docs, key=lambda d: len(d.page_content), reverse=True)
-    if not docs:
-        return "I could not find this information."
-    
-
-    context = ""
-    if vessel_context:
-        vessel_context_text = f"""
-    Region: {vessel_context['region']}
-    Vessel Type: {vessel_context['vessel_type']}
-    Classification Society: {vessel_context['classification_society']}
-    """
-    else:
-        vessel_context_text = "No vessel-specific information provided."
-        
-
-    sources = set()
-    references = set()
-
-    for doc in docs:
-
-        context += add_unique(context, doc)
-
-        if "source" in doc.metadata:
-            sources.add(doc.metadata["source"])
-
-        refs = extract_references(doc.page_content)
-        references.update(refs)
-
-    for ref in list(references)[:MAX_REFERENCES]:
-        
-        more_docs = db.similarity_search(ref, k=2)
-
-        for doc in more_docs:
-            context += add_unique(context, doc)
-
-    prompt = f"""
-
-
-Answer using ONLY the standards context provided.
-
-If vessel information is provided, use it to determine which requirements are applicable.
-
-The answer requires identifying ALL relevant items.
-
-Return a complete answer as a bullet list where appropriate.
-
-Do NOT invent information.
-Do NOT ignore relevant requirements.
-
-Vessel Information:
-{vessel_context_text}
-
-Standards Context:
-{context}
-
-Question:
-{question}
-
-Answer:
-
-"""
-    inputs = tokenizer(prompt, return_tensors="pt", truncation=True)
-    outputs = model.generate(**inputs, max_new_tokens=200)
-    result = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    source_text = "\n".join(f"- {s}" for s in sources)
-
-    # print(context)
-    return result + "\n\nSources:\n" + source_text
 
 
 print("Technical Standards Copilot")
@@ -207,23 +164,26 @@ print("Query Type:")
 print("1. General Standards Inquiry")
 print("2. Vessel-Specific Requirements")
 
-query_type = input("Select option: ")
+query_type = ""
+
+while query_type not in ["1", "2"]:
+    query_type = input("\nOption: ").strip()
+
 vessel_context = None
 
 if query_type == "2":
-    class_society = input("Classification Society: ")
-
-    vessel_context = {
-        "region": input("Region/Flag State: "),
-        "vessel_type": input("Vessel Type: "),
-        "classification_society": class_society
-    }
-    if not class_society_exists(class_society):
-        print(
-            f"\nNo documents have been loaded for "
-            f"{class_society}.\n"
-            "Please choose a supported classification society."
-        )
+    region = get_menu_choice("Select Region/Flag State:", REGIONS)
+    vessel_type = get_menu_choice("Select Vessel Type:", VESSEL_TYPES)
+    while True:
+        class_society = get_menu_choice("Select Classification Society", CLASS_SOCIETIES)
+        if class_society_exists(class_society):
+            break
+        else:
+            print(
+                f"\nNo documents have been loaded for "
+                f"{class_society}.\n"
+                "Please choose a supported classification society."
+            )
 
 while True:
 
