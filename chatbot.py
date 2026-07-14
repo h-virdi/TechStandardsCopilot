@@ -92,8 +92,6 @@ Answer using ONLY the context below.
 
 The answer requires identifying ALL relevant items.
 
-Carefully extract and combine ALL cybersecurity notation variants mentioned in the context.
-
 Return a COMPLETE list.
 Return the answer as a bullet list.
 
