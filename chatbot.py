@@ -29,33 +29,22 @@ db = Chroma(
     embedding_function=embeddings
 )
 
-# SYSTEM_PROMPT = """
-
-# Answer using ONLY the context.
-
-# If the answer refers to sections (e.g., 3.1.2), explain what those sections contain.
-
-# Answer using ONLY the context.
-
-# Provide a clear and complete answer.
-
-# If the answer is not in the context, say:
-# "I could not find this information in the loaded standards."
-
-# Always cite the source
-
-# """
-
-
-def ask_question(question):
+def ask_question(question, vessel_context=None):
     seen_chunks = set()
     def add_unique(context, doc):
         if doc.page_content not in seen_chunks:
             seen_chunks.add(doc.page_content)
             return doc.page_content + "\n\n"
         return ""
+    search_query = question
+    if vessel_context:
+        search_query += f"""
+        {vessel_context['vessel_type']} 
+        {vessel_context['classification_society']}
+        {vessel_context['region']}
+        """
     docs = db.similarity_search(
-        question,
+        search_query,
         k=10
     )
     docs = sorted(docs, key=lambda d: len(d.page_content), reverse=True)
@@ -64,6 +53,15 @@ def ask_question(question):
     
 
     context = ""
+    if vessel_context:
+        vessel_context_text = f"""
+    Region: {vessel_context['region']}
+    Vessel Type: {vessel_context['vessel_type']}
+    Classification Society: {vessel_context['classification_society']}
+    """
+    else:
+        vessel_context_text = "No vessel-specific information provided."
+        
 
     sources = set()
     references = set()
@@ -88,17 +86,21 @@ def ask_question(question):
     prompt = f"""
 
 
-Answer using ONLY the context below.
+Answer using ONLY the standards context provided.
+
+If vessel information is provided, use it to determine which requirements are applicable.
 
 The answer requires identifying ALL relevant items.
 
-Return a COMPLETE list.
-Return the answer as a bullet list.
+Return a complete answer as a bullet list where appropriate.
 
-Do NOT return only partial items.
-Do NOT ignore any variants.
+Do NOT invent information.
+Do NOT ignore relevant requirements.
 
-Context:
+Vessel Information:
+{vessel_context_text}
+
+Standards Context:
 {context}
 
 Question:
@@ -112,26 +114,26 @@ Answer:
     result = tokenizer.decode(outputs[0], skip_special_tokens=True)
     source_text = "\n".join(f"- {s}" for s in sources)
 
-    # response = client.chat.completions.create(
-    #     model="gpt-4.1",
-    #     messages=[
-    #         {
-    #             "role": "system",
-    #             "content": SYSTEM_PROMPT
-    #         },
-    #         {
-    #             "role": "user",
-    #             "content": prompt
-    #         }
-    #     ]
-    # )
-
-    print(context)
+    # print(context)
     return result + "\n\nSources:\n" + source_text
 
 
-print("Cybersecurity Standards Chatbot")
+print("Technical Standards Copilot")
 print("Type 'exit' to quit.\n")
+
+print("Query Type:")
+print("1. General Standards Inquiry")
+print("2. Vessel-Specific Requirements")
+
+query_type = input("Select option: ")
+vessel_context = None
+
+if query_type == "2":
+    vessel_context = {
+        "region": input("Region/Flag State: "),
+        "vessel_type": input("Vessel Type: "),
+        "classification_society": input("Classification Society: ")
+    }
 
 while True:
 
@@ -142,7 +144,7 @@ while True:
 
     try:
 
-        answer = ask_question(question)
+        answer = ask_question(question, vessel_context)
         print("\n" + answer + "\n")
 
     except Exception as e:
