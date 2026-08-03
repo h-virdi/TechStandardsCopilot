@@ -1,24 +1,32 @@
-COLUMN_MAPPING = {
+import json
+
+COLUMN_ALIASES = {
     "ship_sys": [
-        "Ship functions and systems"
+        "Ship functions and systems",
+        "System Owner"
     ],
     "system": [
-        "System"
+        "System",
+        "System Name or Identifier",
+        "Maintaining Organization"
     ],
     "equipment": [
-        "Equipment",
+        "Equipment"
     ],
     "manufacturer": [
-        "Brand/Manufacturer"
-        "Manufacturer"
+        "Brand/Manufacturer",
+        "Manufacturer",
+        "Hardware Manufacturer and Model"
     ],
     "model": [
         "Model and type",
-        "Model"
+        "Model",
+        "Hardware Manufacturer and Model"
     ],
     "uniq_id": [
         "Unique ID",
-        "Unique identifier"
+        "Unique identifier",
+        "ID"
     ],
     "os": [
         "Operating system",
@@ -54,7 +62,7 @@ COLUMN_MAPPING = {
         "Connections to or via untrusted network/Remote connection"
     ],
     "phy_interfaces": [
-        "Physical interfaces",
+        "Physical interfaces"
     ],
     "comm_protocols": [
         "Communication protocols",
@@ -72,8 +80,36 @@ COLUMN_MAPPING = {
     ]
 }
 
+
 def find_column(df, aliases):
     for column in df.columns:
         if str(column).strip() in aliases:
             return column
     return None
+
+def load_aliases():
+    with open("data/asset_aliases.json",
+              "r") as f:
+        return json.load(f)
+
+def normalise_asset_name(
+        asset_name,
+        aliases
+):
+    asset_name = asset_name.strip()
+    for canonical, variants in aliases.items():
+        if asset_name in variants:
+            return canonical
+    return asset_name
+
+def combine_columns(row, columns):
+    values = []
+    for column in columns:
+        value = str(
+            row.get(column, "")
+        ).strip()
+
+        if value and value.lower() != "nan":
+            values.append(value)
+    return " ".join(values)
+
