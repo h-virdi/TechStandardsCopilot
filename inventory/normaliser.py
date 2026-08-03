@@ -1,14 +1,20 @@
+from encodings.aliases import aliases
 import json
+
+from pandas import col
 
 COLUMN_ALIASES = {
     "ship_sys": [
         "Ship functions and systems",
-        "System Owner"
+        "System Owner",
+        "Asset Inventory System Owner"
     ],
     "system": [
         "System",
         "System Name or Identifier",
-        "Maintaining Organization"
+        "Maintaining Organization",
+        "Asset Inventory System Name or Identifier",
+        "Asset Inventory Maintaining Organization"
     ],
     "equipment": [
         "Equipment"
@@ -16,7 +22,8 @@ COLUMN_ALIASES = {
     "manufacturer": [
         "Brand/Manufacturer",
         "Manufacturer",
-        "Hardware Manufacturer and Model"
+        "Hardware Manufacturer and Model",
+        "Asset Inventory Hardware Manufacturer and Model"
     ],
     "model": [
         "Model and type",
@@ -26,12 +33,14 @@ COLUMN_ALIASES = {
     "uniq_id": [
         "Unique ID",
         "Unique identifier",
-        "ID"
+        "ID",
+        "Asset Inventory ID",
     ],
     "os": [
         "Operating system",
         "OS",
-        "Operating System - (OS) Version and patch level included"
+        "Operating System - (OS) Version and patch level included",
+        "Asset Inventory OS Information (incl. firmware)"
     ],
     "firmware": [
         "Firmware version",
@@ -62,7 +71,10 @@ COLUMN_ALIASES = {
         "Connections to or via untrusted network/Remote connection"
     ],
     "phy_interfaces": [
-        "Physical interfaces"
+        "Physical interfaces",
+        "Asset Inventory Physical Serial Port",
+        "Asset Inventory Physical Network Port",
+        "Asset Inventory Physical Fibre Port"
     ],
     "comm_protocols": [
         "Communication protocols",
@@ -82,9 +94,11 @@ COLUMN_ALIASES = {
 
 
 def find_column(df, aliases):
-    for column in df.columns:
-        if str(column).strip() in aliases:
-            return column
+    for col in df.columns:
+        col_text = str(col).strip().lower()
+        for alias in aliases:
+            if alias.lower() in col_text:
+                return col
     return None
 
 def load_aliases():

@@ -4,10 +4,38 @@ import json
 def build_statistics(records):
     stats = {}
     for asset in records:
-        asset_key = asset.equipment
+        candidate_fields = [
+
+            asset.equipment,
+
+            asset.system,
+
+            asset.ship_sys,
+
+            asset.manufacturer,
+
+            asset.model
+        ]
+
+        asset_key = None
+
+        for value in candidate_fields:
+
+            value = str(value).strip()
+
+            if value and value.lower() != "nan":
+
+                asset_key = value
+
+                break
 
         if not asset_key:
             continue
+
+        print(
+            "Grouping Asset:",
+            asset_key
+        )
 
         if asset_key not in stats:
             stats[asset_key] = {
@@ -57,8 +85,8 @@ def save_statistics(stats, output_file):
             "sec_zone": dict(values["sec_zone"]),
             "suc": dict(values["suc"]),
             "comm_protocols": dict(values["comm_protocols"]),
-            "is_neg_risk_count": dict(values["is_neg_risk_count"]),
-            "has_ta_cert_count": dict(values["has_ta_cert_count"]),
+            "is_neg_risk_count": values["is_neg_risk_count"],
+            "has_ta_cert_count": values["has_ta_cert_count"],
         }
     with open(output_file, 'w', encoding="utf-8") as f:
         json.dump(serialisable, f, indent=2)

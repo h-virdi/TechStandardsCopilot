@@ -1,3 +1,4 @@
+from numpy import rint
 import pandas as pd
 
 from inventory.models import AssetRecord
@@ -6,6 +7,7 @@ from inventory.normaliser import (
     combine_columns,
     COLUMN_ALIASES
 )
+from inventory.sheet_detector import (find_inventory_sheet, score_sheet)
 
 def load_workbook(file_path):
     return pd.read_excel(
@@ -16,20 +18,43 @@ def load_workbook(file_path):
     )
 
 def detect_header_row(df):
-    for row_idx in range(min(20, len(df))):
-        row_text = " ".join(str(x)
-                            for x in df.iloc[row_idx]).lower()
-        if (
-            "asset" in row_text
-            or "system" in row_text
-                ):
-            return row_idx
 
-    return 0
+    required_keywords = [
+        "id",
+        "system owner",
+        "component description"
+    ]
+
+    best_row = 0
+    best_score = 0
+
+    for row_idx in range(
+        min(20, len(df))
+    ):
+
+        row_text = " ".join(
+            str(x)
+            for x in df.iloc[row_idx]
+        ).lower()
+
+        score = sum(
+            1
+            for keyword in required_keywords
+            if keyword in row_text
+        )
+
+        if score > best_score:
+            best_score = score
+            best_row = row_idx
+
+    return best_row
 
 def flatten_headers(df, header_row):
-    header1 = (df.iloc[header_row].fillna(method="ffill"))
-    header2 = (df.iloc[header_row + 1].fillna(""))
+    header1 = (df.iloc[header_row].ffill())
+    if header_row + 1 < len(df):
+        header2 = (df.iloc[header_row + 1].fillna(""))
+    else:
+        header2 = [""] * len(header1)
     headers = []
 
     for h1, h2 in zip(header1, header2):
@@ -39,14 +64,27 @@ def flatten_headers(df, header_row):
     return headers
 
 def parse_sheet(df, sheet_name):
+    print(f"\nFIRST 15 ROWS OF {sheet_name}")
+    for i in range(min(15, len(df))):
+        print(f"ROW {i}:", df.iloc[i].tolist())
     records = []
     header_row = detect_header_row(df)
+    print(f"\nSheet: {sheet_name}")
+    print(f"Header Row: {header_row}")
     columns = flatten_headers(df, header_row)
     data = df.iloc[header_row + 2 :].copy()
+    print(df.iloc[header_row])
+    print(df.iloc[header_row + 1])
     data.columns = columns
+    print(f"\n=== SHEET: {sheet_name} ===")
+    print("Columns detected:")
+    for col in data.columns:
+        print(repr(col))
     id_col = find_column(data, COLUMN_ALIASES["uniq_id"])
     if id_col is None:
         return records
+    print("\nID Column Found:")
+    print(id_col)
     ship_sys_col = find_column(data, COLUMN_ALIASES["ship_sys"])
     system_col = find_column(data, COLUMN_ALIASES["system"])
     equipment_col = find_column(data, COLUMN_ALIASES["equipment"])
@@ -64,9 +102,25 @@ def parse_sheet(df, sheet_name):
     has_ta_cert_col = find_column(data, COLUMN_ALIASES["has_ta_cert"])
 
     for _, row in data.iterrows():
+        print(
+            "ID:",
+            row.get(id_col, ""),
+
+            "| System:",
+            row.get(system_col, ""),
+
+            "| Manufacturer:",
+            row.get(manufacturer_col, "")
+)
         os_value = combine_columns(row, 
                                    ["OS Information (incl. firmware) OS Name",
                                     "OS Information (incl. firmware) Version Number"])
+
+        uniq_id = str(row.get(id_col, "")).strip()
+        if (not uniq_id or uniq_id.lower() == "nan" or "<e.g." in uniq_id.lower()):
+            continue
+        if row.isna().all():
+            continue
 
         record = AssetRecord(
             ship_sys=str(row.get(ship_sys_col, "")),
@@ -97,8 +151,10 @@ def parse_inventory(file_path):
     workbook = load_workbook(file_path)
     all_records = []
 
-    for sheet_name, df in workbook.items():
+    inventory_sheets = find_inventory_sheet(workbook)
+    for sheet_name in inventory_sheets:
+        df = workbook[sheet_name]
         records = parse_sheet(df, sheet_name)
+        print(f"{sheet_name}: {len(records)} records found.")
         all_records.extend(records)
-
     return all_records
