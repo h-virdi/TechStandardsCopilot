@@ -5,19 +5,20 @@ def build_statistics(records):
     stats = {}
     for asset in records:
         candidate_fields = [
-
+            asset.uniq_id,
             asset.equipment,
-
             asset.system,
-
-            asset.ship_sys,
-
             asset.manufacturer,
-
             asset.model
         ]
 
-        asset_key = None
+        asset_key = asset.uniq_id.strip()
+
+        if (
+            not asset_key
+            or asset_key.lower() == "nan"
+        ):
+            continue
 
         for value in candidate_fields:
 

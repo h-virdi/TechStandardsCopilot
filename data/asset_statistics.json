@@ -1,70 +1,985 @@
 {
-  "Terminal Manager": {
-    "count": 54,
+  "PLC PS1": {
+    "count": 1,
     "manufacturer": {
-      "Schneider Electric 140 CPS 124 20": 1,
-      "Schneider Electric 140 CPU 311 10": 1,
-      "Schneider Electric 140 NOE 771 11": 1,
-      "Schneider Electric 140 DAI 753 00": 5,
-      "Schneider Electric 140 DDO 353 00": 3,
-      "Schneider Electric 140 DDO 353 01": 1,
-      "Schneider Electric CPS 3500": 1,
-      "Schneider Electric CPU P68 7020": 1,
-      "Schneider Electric AMI 0800": 2,
-      "Schneider Electric DDI 3202K": 3,
-      "Schneider Electric DDO 3202K": 3,
-      "Dell - PowerEdge R630": 1,
-      "AdvanTech ARK 3360": 5,
-      "AdvanTech ARK 2121": 1,
-      "Dlink - DES-1024D (24 port)": 1,
-      "Cisco SF95-24": 1,
-      "Weidmuller - IE-SW3/1ST-WAVE": 3,
-      "Weidmuller - IE-SW-BL05-4TX-1ST": 4,
-      "Startech": 2,
-      "Optical System Design - OSD 139": 10,
-      "Moxa mb3170": 1,
-      "Schneiderr TSXETG100": 1,
-      "Dell Optiplex 7020": 1,
-      "Nport 6610-16 (16port)": 1
+      "Schneider Electric 140 CPS 124 20": 1
     },
     "model": {
-      "Schneider Electric 140 CPS 124 20": 1,
-      "Schneider Electric 140 CPU 311 10": 1,
-      "Schneider Electric 140 NOE 771 11": 1,
-      "Schneider Electric 140 DAI 753 00": 5,
-      "Schneider Electric 140 DDO 353 00": 3,
-      "Schneider Electric 140 DDO 353 01": 1,
-      "Schneider Electric CPS 3500": 1,
-      "Schneider Electric CPU P68 7020": 1,
-      "Schneider Electric AMI 0800": 2,
-      "Schneider Electric DDI 3202K": 3,
-      "Schneider Electric DDO 3202K": 3,
-      "Dell - PowerEdge R630": 1,
-      "AdvanTech ARK 3360": 5,
-      "AdvanTech ARK 2121": 1,
-      "Dlink - DES-1024D (24 port)": 1,
-      "Cisco SF95-24": 1,
-      "Weidmuller - IE-SW3/1ST-WAVE": 3,
-      "Weidmuller - IE-SW-BL05-4TX-1ST": 4,
-      "Startech": 2,
-      "Optical System Design - OSD 139": 10,
-      "Moxa mb3170": 1,
-      "Schneiderr TSXETG100": 1,
-      "Dell Optiplex 7020": 1,
-      "Nport 6610-16 (16port)": 1
+      "Schneider Electric 140 CPS 124 20": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC CPU1": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric 140 CPU 311 10": 1
+    },
+    "model": {
+      "Schneider Electric 140 CPU 311 10": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC NOE": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric 140 NOE 771 11": 1
+    },
+    "model": {
+      "Schneider Electric 140 NOE 771 11": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC DAI 1": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric 140 DAI 753 00": 1
+    },
+    "model": {
+      "Schneider Electric 140 DAI 753 00": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC DAI 2": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric 140 DAI 753 00": 1
+    },
+    "model": {
+      "Schneider Electric 140 DAI 753 00": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC DAI 3": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric 140 DAI 753 00": 1
+    },
+    "model": {
+      "Schneider Electric 140 DAI 753 00": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC DAI 4": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric 140 DAI 753 00": 1
+    },
+    "model": {
+      "Schneider Electric 140 DAI 753 00": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC DAI 5": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric 140 DAI 753 00": 1
+    },
+    "model": {
+      "Schneider Electric 140 DAI 753 00": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC DDO 1": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric 140 DDO 353 00": 1
+    },
+    "model": {
+      "Schneider Electric 140 DDO 353 00": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC DDO 2": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric 140 DDO 353 00": 1
+    },
+    "model": {
+      "Schneider Electric 140 DDO 353 00": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC DDO 3": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric 140 DDO 353 00": 1
+    },
+    "model": {
+      "Schneider Electric 140 DDO 353 00": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC DDO 4": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric 140 DDO 353 01": 1
+    },
+    "model": {
+      "Schneider Electric 140 DDO 353 01": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC PS2": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric CPS 3500": 1
+    },
+    "model": {
+      "Schneider Electric CPS 3500": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC CPU2": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric CPU P68 7020": 1
+    },
+    "model": {
+      "Schneider Electric CPU P68 7020": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC AMI 1": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric AMI 0800": 1
+    },
+    "model": {
+      "Schneider Electric AMI 0800": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC AMI 2": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric AMI 0800": 1
+    },
+    "model": {
+      "Schneider Electric AMI 0800": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC DDI 1": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric DDI 3202K": 1
+    },
+    "model": {
+      "Schneider Electric DDI 3202K": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC DDI 2": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric DDI 3202K": 1
+    },
+    "model": {
+      "Schneider Electric DDI 3202K": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC DDI 3": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric DDI 3202K": 1
+    },
+    "model": {
+      "Schneider Electric DDI 3202K": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC DDO 5": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric DDO 3202K": 1
+    },
+    "model": {
+      "Schneider Electric DDO 3202K": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC DDO6": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric DDO 3202K": 1
+    },
+    "model": {
+      "Schneider Electric DDO 3202K": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "PLC DDO7": {
+    "count": 1,
+    "manufacturer": {
+      "Schneider Electric DDO 3202K": 1
+    },
+    "model": {
+      "Schneider Electric DDO 3202K": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "OmegaServer": {
+    "count": 1,
+    "manufacturer": {
+      "Dell - PowerEdge R630": 1
+    },
+    "model": {
+      "Dell - PowerEdge R630": 1
     },
     "os": {
-      "Red Hat Enterprise 7.7 (Maipo) 7.7 (Maipo)": 1,
-      "Red Hat Enterprise Linux Server release 5.5 (Tikanga) 5.5 (Tikanga)": 5,
-      "not yet installed not yet installed": 1,
+      "Red Hat Enterprise 7.7 (Maipo) 7.7 (Maipo)": 1
+    },
+    "firmware": {
+      "Red Hat Enterprise 7.7 (Maipo)": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "RTC1": {
+    "count": 1,
+    "manufacturer": {
+      "AdvanTech ARK 3360": 1
+    },
+    "model": {
+      "AdvanTech ARK 3360": 1
+    },
+    "os": {
+      "Red Hat Enterprise Linux Server release 5.5 (Tikanga) 5.5 (Tikanga)": 1
+    },
+    "firmware": {
+      "Red Hat Enterprise Linux Server release 5.5 (Tikanga)": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "RTC2": {
+    "count": 1,
+    "manufacturer": {
+      "AdvanTech ARK 3360": 1
+    },
+    "model": {
+      "AdvanTech ARK 3360": 1
+    },
+    "os": {
+      "Red Hat Enterprise Linux Server release 5.5 (Tikanga) 5.5 (Tikanga)": 1
+    },
+    "firmware": {
+      "Red Hat Enterprise Linux Server release 5.5 (Tikanga)": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "RTC3": {
+    "count": 1,
+    "manufacturer": {
+      "AdvanTech ARK 3360": 1
+    },
+    "model": {
+      "AdvanTech ARK 3360": 1
+    },
+    "os": {
+      "Red Hat Enterprise Linux Server release 5.5 (Tikanga) 5.5 (Tikanga)": 1
+    },
+    "firmware": {
+      "Red Hat Enterprise Linux Server release 5.5 (Tikanga)": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "RTC4": {
+    "count": 1,
+    "manufacturer": {
+      "AdvanTech ARK 3360": 1
+    },
+    "model": {
+      "AdvanTech ARK 3360": 1
+    },
+    "os": {
+      "Red Hat Enterprise Linux Server release 5.5 (Tikanga) 5.5 (Tikanga)": 1
+    },
+    "firmware": {
+      "Red Hat Enterprise Linux Server release 5.5 (Tikanga)": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "RTC6": {
+    "count": 1,
+    "manufacturer": {
+      "AdvanTech ARK 3360": 1
+    },
+    "model": {
+      "AdvanTech ARK 3360": 1
+    },
+    "os": {
+      "Red Hat Enterprise Linux Server release 5.5 (Tikanga) 5.5 (Tikanga)": 1
+    },
+    "firmware": {
+      "Red Hat Enterprise Linux Server release 5.5 (Tikanga)": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "RTC7": {
+    "count": 1,
+    "manufacturer": {
+      "AdvanTech ARK 2121": 1
+    },
+    "model": {
+      "AdvanTech ARK 2121": 1
+    },
+    "os": {
+      "not yet installed not yet installed": 1
+    },
+    "firmware": {
+      "not yet installed": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "Switch-1": {
+    "count": 1,
+    "manufacturer": {
+      "Dlink - DES-1024D (24 port)": 1
+    },
+    "model": {
+      "Dlink - DES-1024D (24 port)": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "switch-2": {
+    "count": 1,
+    "manufacturer": {
+      "Cisco SF95-24": 1
+    },
+    "model": {
+      "Cisco SF95-24": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "FO Converter 1": {
+    "count": 1,
+    "manufacturer": {
+      "Weidmuller - IE-SW3/1ST-WAVE": 1
+    },
+    "model": {
+      "Weidmuller - IE-SW3/1ST-WAVE": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "FO Converter 2": {
+    "count": 1,
+    "manufacturer": {
+      "Weidmuller - IE-SW3/1ST-WAVE": 1
+    },
+    "model": {
+      "Weidmuller - IE-SW3/1ST-WAVE": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "FO Converter 3": {
+    "count": 1,
+    "manufacturer": {
+      "Weidmuller - IE-SW3/1ST-WAVE": 1
+    },
+    "model": {
+      "Weidmuller - IE-SW3/1ST-WAVE": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "FO Converter 4": {
+    "count": 1,
+    "manufacturer": {
+      "Weidmuller - IE-SW-BL05-4TX-1ST": 1
+    },
+    "model": {
+      "Weidmuller - IE-SW-BL05-4TX-1ST": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "FO Converter 5": {
+    "count": 1,
+    "manufacturer": {
+      "Weidmuller - IE-SW-BL05-4TX-1ST": 1
+    },
+    "model": {
+      "Weidmuller - IE-SW-BL05-4TX-1ST": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "FO Converter 6": {
+    "count": 1,
+    "manufacturer": {
+      "Weidmuller - IE-SW-BL05-4TX-1ST": 1
+    },
+    "model": {
+      "Weidmuller - IE-SW-BL05-4TX-1ST": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "FO Converter 7": {
+    "count": 1,
+    "manufacturer": {
+      "Startech": 1
+    },
+    "model": {
+      "Startech": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "FO Converter 8": {
+    "count": 1,
+    "manufacturer": {
+      "Startech": 1
+    },
+    "model": {
+      "Startech": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "FO Converter 9": {
+    "count": 1,
+    "manufacturer": {
+      "Weidmuller - IE-SW-BL05-4TX-1ST": 1
+    },
+    "model": {
+      "Weidmuller - IE-SW-BL05-4TX-1ST": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "OSD 1": {
+    "count": 1,
+    "manufacturer": {
+      "Optical System Design - OSD 139": 1
+    },
+    "model": {
+      "Optical System Design - OSD 139": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "OSD 2": {
+    "count": 1,
+    "manufacturer": {
+      "Optical System Design - OSD 139": 1
+    },
+    "model": {
+      "Optical System Design - OSD 139": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "OSD 3": {
+    "count": 1,
+    "manufacturer": {
+      "Optical System Design - OSD 139": 1
+    },
+    "model": {
+      "Optical System Design - OSD 139": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "OSD 4": {
+    "count": 1,
+    "manufacturer": {
+      "Optical System Design - OSD 139": 1
+    },
+    "model": {
+      "Optical System Design - OSD 139": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "OSD 5": {
+    "count": 1,
+    "manufacturer": {
+      "Optical System Design - OSD 139": 1
+    },
+    "model": {
+      "Optical System Design - OSD 139": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "OSD 6": {
+    "count": 1,
+    "manufacturer": {
+      "Optical System Design - OSD 139": 1
+    },
+    "model": {
+      "Optical System Design - OSD 139": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "OSD 7": {
+    "count": 1,
+    "manufacturer": {
+      "Optical System Design - OSD 139": 1
+    },
+    "model": {
+      "Optical System Design - OSD 139": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "OSD 8": {
+    "count": 1,
+    "manufacturer": {
+      "Optical System Design - OSD 139": 1
+    },
+    "model": {
+      "Optical System Design - OSD 139": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "OSD 9": {
+    "count": 1,
+    "manufacturer": {
+      "Optical System Design - OSD 139": 1
+    },
+    "model": {
+      "Optical System Design - OSD 139": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "OSD 10": {
+    "count": 1,
+    "manufacturer": {
+      "Optical System Design - OSD 139": 1
+    },
+    "model": {
+      "Optical System Design - OSD 139": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "Modbus gateway 1": {
+    "count": 1,
+    "manufacturer": {
+      "Moxa mb3170": 1
+    },
+    "model": {
+      "Moxa mb3170": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "Modbus gateway 2": {
+    "count": 1,
+    "manufacturer": {
+      "Schneiderr TSXETG100": 1
+    },
+    "model": {
+      "Schneiderr TSXETG100": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "Scada Workstation1": {
+    "count": 1,
+    "manufacturer": {
+      "Dell Optiplex 7020": 1
+    },
+    "model": {
+      "Dell Optiplex 7020": 1
+    },
+    "os": {
       "Windows 10 Windows 10  Pro": 1
     },
     "firmware": {
-      "nan": 46,
-      "Red Hat Enterprise 7.7 (Maipo)": 1,
-      "Red Hat Enterprise Linux Server release 5.5 (Tikanga)": 5,
-      "not yet installed": 1,
       "Windows 10": 1
+    },
+    "sec_zone": {},
+    "suc": {},
+    "comm_protocols": {},
+    "is_neg_risk_count": 0,
+    "has_ta_cert_count": 0
+  },
+  "TS1": {
+    "count": 1,
+    "manufacturer": {
+      "Nport 6610-16 (16port)": 1
+    },
+    "model": {
+      "Nport 6610-16 (16port)": 1
+    },
+    "os": {},
+    "firmware": {
+      "nan": 1
     },
     "sec_zone": {},
     "suc": {},

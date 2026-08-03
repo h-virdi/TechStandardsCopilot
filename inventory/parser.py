@@ -117,8 +117,19 @@ def parse_sheet(df, sheet_name):
                                     "OS Information (incl. firmware) Version Number"])
 
         uniq_id = str(row.get(id_col, "")).strip()
-        if (not uniq_id or uniq_id.lower() == "nan" or "<e.g." in uniq_id.lower()):
+        if (not uniq_id or uniq_id.lower() == "nan" or "<e.g." in uniq_id.lower() or uniq_id.lower() == "end of section."):
             continue
+
+        manufacturer = str(
+            row.get(manufacturer_col, "")
+        ).strip()
+
+        if (
+            manufacturer.lower() == "nan"
+            and uniq_id != ""
+        ):
+            continue
+
         if row.isna().all():
             continue
 
