@@ -21,3 +21,4 @@ class AssetRecord:
     comm_protocols: str
     is_neg_risk: bool
     has_ta_cert: bool
+    source_sheet: str
