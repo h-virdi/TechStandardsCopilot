@@ -97,7 +97,7 @@ def find_column(df, aliases):
     for col in df.columns:
         col_text = str(col).strip().lower()
         for alias in aliases:
-            if alias.lower() in col_text:
+            if alias.lower() == col_text:
                 return col
     return None
 
@@ -117,13 +117,22 @@ def normalise_asset_name(
     return asset_name
 
 def combine_columns(row, columns):
+    INVALID_VALUES = {
+        "",
+        "nan",
+        "n/a",
+        "na",
+        "not yet installed",
+        "not used",
+        "not commissioned"
+    }
     values = []
     for column in columns:
         value = str(
             row.get(column, "")
         ).strip()
 
-        if value and value.lower() != "nan":
+        if value.lower() not in INVALID_VALUES:
             values.append(value)
     return " ".join(values)
 

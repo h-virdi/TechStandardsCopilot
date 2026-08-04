@@ -1,4 +1,3 @@
-from numpy import rint
 import pandas as pd
 
 from inventory.models import AssetRecord

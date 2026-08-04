@@ -8,9 +8,7 @@
       "Schneider Electric 140 CPS 124 20": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -26,9 +24,7 @@
       "Schneider Electric 140 CPU 311 10": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -44,9 +40,7 @@
       "Schneider Electric 140 NOE 771 11": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -62,9 +56,7 @@
       "Schneider Electric 140 DAI 753 00": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -80,9 +72,7 @@
       "Schneider Electric 140 DAI 753 00": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -98,9 +88,7 @@
       "Schneider Electric 140 DAI 753 00": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -116,9 +104,7 @@
       "Schneider Electric 140 DAI 753 00": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -134,9 +120,7 @@
       "Schneider Electric 140 DAI 753 00": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -152,9 +136,7 @@
       "Schneider Electric 140 DDO 353 00": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -170,9 +152,7 @@
       "Schneider Electric 140 DDO 353 00": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -188,9 +168,7 @@
       "Schneider Electric 140 DDO 353 00": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -206,9 +184,7 @@
       "Schneider Electric 140 DDO 353 01": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -224,9 +200,7 @@
       "Schneider Electric CPS 3500": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -242,9 +216,7 @@
       "Schneider Electric CPU P68 7020": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -260,9 +232,7 @@
       "Schneider Electric AMI 0800": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -278,9 +248,7 @@
       "Schneider Electric AMI 0800": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -296,9 +264,7 @@
       "Schneider Electric DDI 3202K": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -314,9 +280,7 @@
       "Schneider Electric DDI 3202K": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -332,9 +296,7 @@
       "Schneider Electric DDI 3202K": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -350,9 +312,7 @@
       "Schneider Electric DDO 3202K": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -368,9 +328,7 @@
       "Schneider Electric DDO 3202K": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -386,9 +344,7 @@
       "Schneider Electric DDO 3202K": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -406,9 +362,7 @@
     "os": {
       "Red Hat Enterprise 7.7 (Maipo) 7.7 (Maipo)": 1
     },
-    "firmware": {
-      "Red Hat Enterprise 7.7 (Maipo)": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -426,9 +380,7 @@
     "os": {
       "Red Hat Enterprise Linux Server release 5.5 (Tikanga) 5.5 (Tikanga)": 1
     },
-    "firmware": {
-      "Red Hat Enterprise Linux Server release 5.5 (Tikanga)": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -446,9 +398,7 @@
     "os": {
       "Red Hat Enterprise Linux Server release 5.5 (Tikanga) 5.5 (Tikanga)": 1
     },
-    "firmware": {
-      "Red Hat Enterprise Linux Server release 5.5 (Tikanga)": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -466,9 +416,7 @@
     "os": {
       "Red Hat Enterprise Linux Server release 5.5 (Tikanga) 5.5 (Tikanga)": 1
     },
-    "firmware": {
-      "Red Hat Enterprise Linux Server release 5.5 (Tikanga)": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -486,9 +434,7 @@
     "os": {
       "Red Hat Enterprise Linux Server release 5.5 (Tikanga) 5.5 (Tikanga)": 1
     },
-    "firmware": {
-      "Red Hat Enterprise Linux Server release 5.5 (Tikanga)": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -506,9 +452,7 @@
     "os": {
       "Red Hat Enterprise Linux Server release 5.5 (Tikanga) 5.5 (Tikanga)": 1
     },
-    "firmware": {
-      "Red Hat Enterprise Linux Server release 5.5 (Tikanga)": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -523,12 +467,8 @@
     "model": {
       "AdvanTech ARK 2121": 1
     },
-    "os": {
-      "not yet installed not yet installed": 1
-    },
-    "firmware": {
-      "not yet installed": 1
-    },
+    "os": {},
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -544,9 +484,7 @@
       "Dlink - DES-1024D (24 port)": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -562,9 +500,7 @@
       "Cisco SF95-24": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -580,9 +516,7 @@
       "Weidmuller - IE-SW3/1ST-WAVE": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -598,9 +532,7 @@
       "Weidmuller - IE-SW3/1ST-WAVE": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -616,9 +548,7 @@
       "Weidmuller - IE-SW3/1ST-WAVE": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -634,9 +564,7 @@
       "Weidmuller - IE-SW-BL05-4TX-1ST": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -652,9 +580,7 @@
       "Weidmuller - IE-SW-BL05-4TX-1ST": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -670,9 +596,7 @@
       "Weidmuller - IE-SW-BL05-4TX-1ST": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -688,9 +612,7 @@
       "Startech": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -706,9 +628,7 @@
       "Startech": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -724,9 +644,7 @@
       "Weidmuller - IE-SW-BL05-4TX-1ST": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -742,9 +660,7 @@
       "Optical System Design - OSD 139": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -760,9 +676,7 @@
       "Optical System Design - OSD 139": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -778,9 +692,7 @@
       "Optical System Design - OSD 139": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -796,9 +708,7 @@
       "Optical System Design - OSD 139": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -814,9 +724,7 @@
       "Optical System Design - OSD 139": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -832,9 +740,7 @@
       "Optical System Design - OSD 139": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -850,9 +756,7 @@
       "Optical System Design - OSD 139": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -868,9 +772,7 @@
       "Optical System Design - OSD 139": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -886,9 +788,7 @@
       "Optical System Design - OSD 139": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -904,9 +804,7 @@
       "Optical System Design - OSD 139": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -922,9 +820,7 @@
       "Moxa mb3170": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -940,9 +836,7 @@
       "Schneiderr TSXETG100": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -960,9 +854,7 @@
     "os": {
       "Windows 10 Windows 10  Pro": 1
     },
-    "firmware": {
-      "Windows 10": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
@@ -978,9 +870,7 @@
       "Nport 6610-16 (16port)": 1
     },
     "os": {},
-    "firmware": {
-      "nan": 1
-    },
+    "firmware": {},
     "sec_zone": {},
     "suc": {},
     "comm_protocols": {},
