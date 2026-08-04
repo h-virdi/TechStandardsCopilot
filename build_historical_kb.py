@@ -9,6 +9,11 @@ for file in inventory_dir.glob("*.xlsx"):
     print(f"Processing {file.name}")
     records.extend(parse_inventory(str(file)))
 
+
+print("\nFIRST 5 RECORDS:\n")
+
+for record in records[:5]:
+    print(record)
 stats = build_statistics(records)
 save_statistics(stats, "data/asset_statistics.json")
 print(f"Processed {len(records)} assets.")
