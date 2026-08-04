@@ -64,27 +64,14 @@ def flatten_headers(df, header_row):
     return headers
 
 def parse_sheet(df, sheet_name):
-    print(f"\nFIRST 15 ROWS OF {sheet_name}")
-    for i in range(min(15, len(df))):
-        print(f"ROW {i}:", df.iloc[i].tolist())
     records = []
     header_row = detect_header_row(df)
-    print(f"\nSheet: {sheet_name}")
-    print(f"Header Row: {header_row}")
     columns = flatten_headers(df, header_row)
     data = df.iloc[header_row + 2 :].copy()
-    print(df.iloc[header_row])
-    print(df.iloc[header_row + 1])
     data.columns = columns
-    print(f"\n=== SHEET: {sheet_name} ===")
-    print("Columns detected:")
-    for col in data.columns:
-        print(repr(col))
     id_col = find_column(data, COLUMN_ALIASES["uniq_id"])
     if id_col is None:
         return records
-    print("\nID Column Found:")
-    print(id_col)
     ship_sys_col = find_column(data, COLUMN_ALIASES["ship_sys"])
     system_col = find_column(data, COLUMN_ALIASES["system"])
     equipment_col = find_column(data, COLUMN_ALIASES["equipment"])
@@ -111,10 +98,32 @@ def parse_sheet(df, sheet_name):
 
             "| Manufacturer:",
             row.get(manufacturer_col, "")
-)
-        os_value = combine_columns(row, 
-                                   ["OS Information (incl. firmware) OS Name",
-                                    "OS Information (incl. firmware) Version Number"])
+)       
+        print(row.index.tolist())
+
+        os_name_col = find_column(
+            data,
+            [
+                "OS Information (incl. firmware) OS Name",
+                "OS Name"
+            ]
+        )
+
+        os_version_col = find_column(
+            data,
+            [
+                "OS Information (incl. firmware) Version Number",
+                "Version Number"
+            ]
+        )
+
+        os_value = combine_columns(
+            row,
+            [
+                os_name_col,
+                os_version_col
+            ]
+        )
 
         uniq_id = str(row.get(id_col, "")).strip()
         if (not uniq_id or uniq_id.lower() == "nan" or "<e.g." in uniq_id.lower() or uniq_id.lower() == "end of section."):
@@ -132,6 +141,20 @@ def parse_sheet(df, sheet_name):
 
         if row.isna().all():
             continue
+
+        if str(row.get(id_col, "")).strip() == "OmegaServer":
+
+            print("OS NAME:",
+                row.get(
+                    "OS Information (incl. firmware) OS Name",
+                    "NOT FOUND"
+                ))
+
+            print("OS VERSION:",
+                row.get(
+                    "OS Information (incl. firmware) Version Number",
+                    "NOT FOUND"
+                ))
 
         record = AssetRecord(
             ship_sys=str(row.get(ship_sys_col, "")),
