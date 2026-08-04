@@ -1,9 +1,6 @@
-from pydoc import doc
-from unittest import result
-from weakref import ref
 from utils import extract_references
-from click import prompt
 from dotenv import load_dotenv
+from pathlib import Path
 
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
@@ -11,6 +8,7 @@ from langchain_chroma import Chroma
 from openai import OpenAI
 from transformers import pipeline
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from inventory.parser import parse_inventory
 
 load_dotenv()
 
@@ -76,7 +74,7 @@ def class_society_exists(class_society):
 
 def ask_question(question, vessel_context=None):
     seen_chunks = set()
-    def add_unique(context, doc):
+    def add_unique(doc):
         if doc.page_content not in seen_chunks:
             seen_chunks.add(doc.page_content)
             return doc.page_content + "\n\n"
@@ -90,8 +88,8 @@ def ask_question(question, vessel_context=None):
         return "I could not find this information."
     
 
-    context = ""
-    if vessel_context is not None:
+    # context = ""
+    if vessel_context:
         vessel_context_text = f"""
         Region: {vessel_context['region']}
         Vessel Type: {vessel_context['vessel_type']}
@@ -102,13 +100,13 @@ def ask_question(question, vessel_context=None):
         General standards inquiry.
         No vessel-specific information supplied.
         """
-
+    context = ""
     sources = set()
     references = set()
 
     for doc in docs:
 
-        context += add_unique(context, doc)
+        context += add_unique(doc)
 
         if "source" in doc.metadata:
             sources.add(doc.metadata["source"])
@@ -128,13 +126,7 @@ def ask_question(question, vessel_context=None):
 
 Answer using ONLY the context below.
 
-The answer requires identifying ALL relevant items.
-
-Return a COMPLETE list.
-Return the answer as a bullet list.
-
-Do NOT return only partial items.
-Do NOT ignore any variants.
+Return a complete answer.
 
 Vessel Information:
 {vessel_context_text}
@@ -148,15 +140,15 @@ Question:
 Answer:
 
 """
-    inputs = tokenizer(prompt, return_tensors="pt", truncation=True)
-    outputs = model.generate(**inputs, max_new_tokens=200)
-    result = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    source_text = "\n".join(f"- {s}" for s in sources)
+    inputs = tokenizer(prompt, return_tensors="pt", truncation=True, max_length=2048)
+    outputs = model.generate(**inputs, max_new_tokens=250)
+    # result = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    source_text = "\n".join(f"- {s}" for s in sorted(sources))
 
     print(context)
-    return result + "\n\nSources:\n" + source_text
+    return answer + "\n\nSources:\n" + source_text
 
-
+#to continue modifying
 print("Technical Standards Copilot")
 print("Type 'exit' to quit.\n")
 
