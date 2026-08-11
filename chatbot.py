@@ -182,7 +182,16 @@ Protocols: {asset.comm_protocols}
     return "\n".join(rows)
 
 def ask_inventory_question(question, records):
-    inv_context = build_inventory_context(records)
+    for asset in records:
+        asset_name = asset.uniq_id.lower()
+        if asset_name in question.lower():
+            matched_asset = find_asset(records, asset.uniq_id)
+            break
+    if matched_asset:
+        inv_context = build_asset_context(matched_asset)
+    else:
+        inv_context = "Asset specification information missing from inventory."
+    #once upgraded to a more sophisticated LLM, replace above with inv_context = build_inventory_context(records) to allow for greater variety of queries
     prompt = f"""
     
     You are analysing an OT asset inventory.
@@ -201,6 +210,29 @@ def ask_inventory_question(question, records):
     inputs = tokenizer(prompt, return_tensors="pt", truncation=True, max_length=4096)
     outputs = model.generate(**inputs, max_new_tokens=250)
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+def find_asset(records, asset_id):
+    asset_id = asset_id.lower()
+    for asset in records:
+        if asset.uniq_id.lower() == asset_id:
+            return asset
+    return None
+
+def build_asset_context(asset):
+    return f"""
+    Asset ID: {asset.uniq_id}
+    Ship System: {asset.ship_sys}
+    System: {asset.system}
+    Manufacturer: {asset.manufacturer}
+    Model: {asset.model}
+    Operating System: {asset.os}
+    Firmware: {asset.firmware}
+    Application: {asset.app}
+    Security Zone: {asset.sec_zone}
+    Function: {asset.function}
+    Suc: {asset.suc}
+    Communication Protocols: {asset.comm_protocols}
+    """
 
 print("\nTechnical Standards Copilot")
 print("Type 'exit' to quit.\n")
