@@ -16,7 +16,7 @@ load_dotenv()
 pytesseract.pytesseract.tesseract_cmd = r"C:\Users\HARVIR\AppData\Local\Programs\Tesseract-OCR\tesseract.exe"
 
 PDF_FOLDER = "standards"
-DB_FOLDER = "vector_db"
+DB_FOLDER = "standards_vector_db"
 
 all_chunks = []
 all_metadatas = []

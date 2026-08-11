@@ -9,12 +9,13 @@ from openai import OpenAI
 from transformers import pipeline
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 from inventory.parser import parse_inventory
+from inventory.vector_store import (create_inventory_db, retrieve_assets, build_context_from_docs)
 
 load_dotenv()
 
 # client = OpenAI()
 
-DB_FOLDER = "vector_db"
+DB_FOLDER = "standards_vector_db"
 MAX_REFERENCES = 5
 
 embeddings = HuggingFaceEmbeddings()
@@ -119,7 +120,7 @@ def ask_standards_question(question, vessel_context=None):
         more_docs = db.similarity_search(ref, k=2)
 
         for doc in more_docs:
-            context += add_unique(context, doc)
+            context += add_unique(doc)
 
     prompt = f"""
 
@@ -181,33 +182,30 @@ Protocols: {asset.comm_protocols}
         )
     return "\n".join(rows)
 
-def ask_inventory_question(question, records):
-    for asset in records:
-        asset_name = asset.uniq_id.lower()
-        if asset_name in question.lower():
-            matched_asset = find_asset(records, asset.uniq_id)
-            break
-    if matched_asset:
-        inv_context = build_asset_context(matched_asset)
-    else:
-        inv_context = "Asset specification information missing from inventory."
-    #once upgraded to a more sophisticated LLM, replace above with inv_context = build_inventory_context(records) to allow for greater variety of queries
+def ask_inventory_question(question, inventory_db):
+    docs = retrieve_assets(question, inventory_db, k=3)
+    if not docs:
+        return("I could not find any relevant assets in the inventory")
+
+    inv_context = build_context_from_docs(docs)
     prompt = f"""
     
     You are analysing an OT asset inventory.
 
-    Inventory:
+    Use ONLY the inventory data below.
+
+    If the requested information is not present, explicitly state that it is not available.
+
+    Inventory Context:
     {inv_context}
 
     Question:
     {question}
 
-    Answer ONLY using the inventory.
-
-    If information is missing, explicitly state that it is not present in the inventory.
+    Answer:
     """
 
-    inputs = tokenizer(prompt, return_tensors="pt", truncation=True, max_length=4096)
+    inputs = tokenizer(prompt, return_tensors="pt", truncation=True, max_length=2048)
     outputs = model.generate(**inputs, max_new_tokens=250)
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
@@ -288,6 +286,7 @@ if mode == "1":
 elif mode == "2":
     try:
         records = load_uploaded_inventory()
+        inv_db = create_inventory_db(records)
     except Exception as e:
         print(f"\nInventory Load Error: {e}\n")
         raise SystemExit()
@@ -299,7 +298,7 @@ elif mode == "2":
         if question.lower() == "exit":
             break
         try:
-            answer = ask_inventory_question(question, records)
+            answer = ask_inventory_question(question, inv_db)
             print("\n" + answer + "\n")
         except Exception as e:
             print(f"\nError: {e}\n")
