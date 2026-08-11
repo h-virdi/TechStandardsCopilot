@@ -41,7 +41,7 @@ def create_inventory_db(records):
     docs = [
         asset_to_document(asset) for asset in records
     ]
-    db = Chroma.from_documents(docs, embeddings=embeddings, persist_directory=INVENTORY_DB_FOLDER)
+    db = Chroma.from_documents(docs, embeddings, persist_directory=INVENTORY_DB_FOLDER)
     return db
 
 def load_inventory_db():

@@ -120,7 +120,7 @@ def ask_standards_question(question, vessel_context=None):
         more_docs = db.similarity_search(ref, k=2)
 
         for doc in more_docs:
-            context += add_unique(context, doc)
+            context += add_unique(doc)
 
     prompt = f"""
 
@@ -298,7 +298,7 @@ elif mode == "2":
         if question.lower() == "exit":
             break
         try:
-            answer = ask_inventory_question(question, records)
+            answer = ask_inventory_question(question, inv_db)
             print("\n" + answer + "\n")
         except Exception as e:
             print(f"\nError: {e}\n")
