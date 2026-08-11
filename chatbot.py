@@ -14,7 +14,7 @@ load_dotenv()
 
 # client = OpenAI()
 
-DB_FOLDER = "vector_db"
+DB_FOLDER = "standards_vector_db"
 MAX_REFERENCES = 5
 
 embeddings = HuggingFaceEmbeddings()
