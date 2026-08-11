@@ -72,7 +72,7 @@ def class_society_exists(class_society):
             return True
     return False
 
-def ask_question(question, vessel_context=None):
+def ask_standards_question(question, vessel_context=None):
     seen_chunks = set()
     def add_unique(doc):
         if doc.page_content not in seen_chunks:
@@ -144,51 +144,136 @@ Answer:
     outputs = model.generate(**inputs, max_new_tokens=250)
     # result = tokenizer.decode(outputs[0], skip_special_tokens=True)
     source_text = "\n".join(f"- {s}" for s in sorted(sources))
+    answer = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
     print(context)
     return answer + "\n\nSources:\n" + source_text
 
-#to continue modifying
-print("Technical Standards Copilot")
+def load_uploaded_inventory():
+    uploads = Path("uploads")
+    files = list(uploads.glob("*.xlsx"))
+
+    if not files:
+        raise Exception("No .xslx file found in uploads folder. Please upload an inventory file.")
+
+    inventory_file = files[0]
+    print(f"\nLoading inventory: "
+          f"{inventory_file.name}")
+
+    records = parse_inventory(str(inventory_file))
+    print(f"Loaded {len(records)} assets.")
+    return records
+
+def build_inventory_context(records):
+    rows = []
+    for asset in records:
+        rows.append(
+            f"""
+Asset ID: {asset.uniq_id}
+System: {asset.system}
+Manufacturer: {asset.manufacturer}
+Model: {asset.model}
+OS: {asset.os}
+Application: {asset.app}
+Security Zone: {asset.sec_zone}
+Protocols: {asset.comm_protocols}
+"""
+        )
+    return "\n".join(rows)
+
+def ask_inventory_question(question, records):
+    inv_context = build_inventory_context(records)
+    prompt = f"""
+    
+    You are analysing an OT asset inventory.
+
+    Inventory:
+    {inv_context}
+
+    Question:
+    {question}
+
+    Answer ONLY using the inventory.
+
+    If information is missing, explicitly state that it is not present in the inventory.
+    """
+
+    inputs = tokenizer(prompt, return_tensors="pt", truncation=True, max_length=4096)
+    outputs = model.generate(**inputs, max_new_tokens=250)
+    return tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+print("\nTechnical Standards Copilot")
 print("Type 'exit' to quit.\n")
+print("Select Mode:")
+print("1. Standards & Requirements Q&A")
+print("2. Asset Inventory Analysis")
+mode = ""
 
-print("Query Type:")
-print("1. General Standards Inquiry")
-print("2. Vessel-Specific Requirements")
+while mode not in ["1", "2"]:
+    mode = input("\nOption: ").strip()
 
-query_type = ""
+if mode == "1":
+    vessel_context = None
+    print("\nQuery Type:")
+    print("1. General Standards Inquiry")
+    print("2. Vessel-Specific Requirements")
 
-while query_type not in ["1", "2"]:
-    query_type = input("\nOption: ").strip()
+    query_type = ""
 
-vessel_context = None
+    while query_type not in ["1", "2"]:
+        query_type = input("\nOption: ").strip()
 
-if query_type == "2":
-    region = get_menu_choice("Select Region/Flag State:", REGIONS)
-    vessel_type = get_menu_choice("Select Vessel Type:", VESSEL_TYPES)
+    vessel_context = None
+
+    if query_type == "2":
+        region = get_menu_choice("Select Region/Flag State:", REGIONS)
+        vessel_type = get_menu_choice("Select Vessel Type:", VESSEL_TYPES)
+        while True:
+            class_society = get_menu_choice("Select Classification Society", CLASS_SOCIETIES)
+            if class_society_exists(class_society):
+                break
+            else:
+                print(
+                    f"\nNo documents have been loaded for "
+                    f"{class_society}.\n"
+                    "Please choose a supported classification society."
+                )
+            vessel_context = {
+                "region": region,
+                "vessel_type": vessel_type,
+                "classification_society": class_society
+            }
     while True:
-        class_society = get_menu_choice("Select Classification Society", CLASS_SOCIETIES)
-        if class_society_exists(class_society):
+        question = input("Ask: ")
+        if question.lower() == "exit":
             break
-        else:
-            print(
-                f"\nNo documents have been loaded for "
-                f"{class_society}.\n"
-                "Please choose a supported classification society."
-            )
+        try:
+            answer = ask_standards_question(question, vessel_context)
+            print("\n" + answer + "\n")
+        except Exception as e:
 
-while True:
-
-    question = input("Ask: ")
-
-    if question.lower() == "exit":
-        break
-
+            print(f"\nError: {e}\n")
+elif mode == "2":
     try:
-
-        answer = ask_question(question, vessel_context)
-        print("\n" + answer + "\n")
-
+        records = load_uploaded_inventory()
     except Exception as e:
+        print(f"\nInventory Load Error: {e}\n")
+        raise SystemExit()
+    print("\nInventory Analysis Mode")
+    print("Type 'exit' to quit.\n")
 
-        print(f"\nError: {e}\n")
+    while True:
+        question = input("\nInventory Question: ")
+        if question.lower() == "exit":
+            break
+        try:
+            answer = ask_inventory_question(question, records)
+            print("\n" + answer + "\n")
+        except Exception as e:
+            print(f"\nError: {e}\n")
+
+
+
+
+
+
