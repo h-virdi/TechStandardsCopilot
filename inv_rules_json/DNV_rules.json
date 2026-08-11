@@ -1,0 +1,23 @@
+{ 
+    "required_fields": [
+        "ship functions and systems",
+        "equipment",
+        "manufacturer",
+        "model",
+        "OS",
+        "firmware",
+        "application",
+        "security zone",
+        "purpose",
+        "connections to suc",
+        "connections to untrusted networks",
+        "physical interfaces",
+        "communication protocols",
+        "negligible risk"
+    ],
+    "optional_fields": [
+        "system",
+        "unique identifier",
+        "location"
+    ]
+}
