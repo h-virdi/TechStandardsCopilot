@@ -88,17 +88,17 @@ def parse_sheet(df, sheet_name):
     has_ta_cert_col = find_column(data, COLUMN_ALIASES["has_ta_cert"])
 
     for _, row in data.iterrows():
-        print(
-            "ID:",
-            row.get(id_col, ""),
+#         print(
+#             "ID:",
+#             row.get(id_col, ""),
 
-            "| System:",
-            row.get(system_col, ""),
+#             "| System:",
+#             row.get(system_col, ""),
 
-            "| Manufacturer:",
-            row.get(manufacturer_col, "")
-)       
-        print(row.index.tolist())
+#             "| Manufacturer:",
+#             row.get(manufacturer_col, "")
+# )       
+        # print(row.index.tolist())
 
         os_name_col = find_column(
             data,
@@ -141,19 +141,19 @@ def parse_sheet(df, sheet_name):
         if row.isna().all():
             continue
 
-        if str(row.get(id_col, "")).strip() == "OmegaServer":
+        # if str(row.get(id_col, "")).strip() == "OmegaServer":
 
-            print("OS NAME:",
-                row.get(
-                    "OS Information (incl. firmware) OS Name",
-                    "NOT FOUND"
-                ))
+            # print("OS NAME:",
+            #     row.get(
+            #         "OS Information (incl. firmware) OS Name",
+            #         "NOT FOUND"
+            #     ))
 
-            print("OS VERSION:",
-                row.get(
-                    "OS Information (incl. firmware) Version Number",
-                    "NOT FOUND"
-                ))
+            # print("OS VERSION:",
+            #     row.get(
+            #         "OS Information (incl. firmware) Version Number",
+            #         "NOT FOUND"
+            #     ))
 
         record = AssetRecord(
             ship_sys=str(row.get(ship_sys_col, "")),
