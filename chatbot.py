@@ -1,9 +1,6 @@
-from pydoc import doc
-from unittest import result
-from weakref import ref
 from utils import extract_references
-from click import prompt
 from dotenv import load_dotenv
+from pathlib import Path
 
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
@@ -11,6 +8,7 @@ from langchain_chroma import Chroma
 from openai import OpenAI
 from transformers import pipeline
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from inventory.parser import parse_inventory
 
 load_dotenv()
 
@@ -74,9 +72,9 @@ def class_society_exists(class_society):
             return True
     return False
 
-def ask_question(question, vessel_context=None):
+def ask_standards_question(question, vessel_context=None):
     seen_chunks = set()
-    def add_unique(context, doc):
+    def add_unique(doc):
         if doc.page_content not in seen_chunks:
             seen_chunks.add(doc.page_content)
             return doc.page_content + "\n\n"
@@ -90,8 +88,8 @@ def ask_question(question, vessel_context=None):
         return "I could not find this information."
     
 
-    context = ""
-    if vessel_context is not None:
+    # context = ""
+    if vessel_context:
         vessel_context_text = f"""
         Region: {vessel_context['region']}
         Vessel Type: {vessel_context['vessel_type']}
@@ -102,13 +100,13 @@ def ask_question(question, vessel_context=None):
         General standards inquiry.
         No vessel-specific information supplied.
         """
-
+    context = ""
     sources = set()
     references = set()
 
     for doc in docs:
 
-        context += add_unique(context, doc)
+        context += add_unique(doc)
 
         if "source" in doc.metadata:
             sources.add(doc.metadata["source"])
@@ -128,13 +126,7 @@ def ask_question(question, vessel_context=None):
 
 Answer using ONLY the context below.
 
-The answer requires identifying ALL relevant items.
-
-Return a COMPLETE list.
-Return the answer as a bullet list.
-
-Do NOT return only partial items.
-Do NOT ignore any variants.
+Return a complete answer.
 
 Vessel Information:
 {vessel_context_text}
@@ -148,55 +140,172 @@ Question:
 Answer:
 
 """
-    inputs = tokenizer(prompt, return_tensors="pt", truncation=True)
-    outputs = model.generate(**inputs, max_new_tokens=200)
-    result = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    source_text = "\n".join(f"- {s}" for s in sources)
+    inputs = tokenizer(prompt, return_tensors="pt", truncation=True, max_length=2048)
+    outputs = model.generate(**inputs, max_new_tokens=250)
+    # result = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    source_text = "\n".join(f"- {s}" for s in sorted(sources))
+    answer = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
     print(context)
-    return result + "\n\nSources:\n" + source_text
+    return answer + "\n\nSources:\n" + source_text
 
+def load_uploaded_inventory():
+    uploads = Path("uploads")
+    files = list(uploads.glob("*.xlsx"))
 
-print("Technical Standards Copilot")
-print("Type 'exit' to quit.\n")
+    if not files:
+        raise Exception("No .xslx file found in uploads folder. Please upload an inventory file.")
 
-print("Query Type:")
-print("1. General Standards Inquiry")
-print("2. Vessel-Specific Requirements")
+    inventory_file = files[0]
+    print(f"\nLoading inventory: "
+          f"{inventory_file.name}")
 
-query_type = ""
+    records = parse_inventory(str(inventory_file))
+    print(f"Loaded {len(records)} assets.")
+    return records
 
-while query_type not in ["1", "2"]:
-    query_type = input("\nOption: ").strip()
+def build_inventory_context(records):
+    rows = []
+    for asset in records:
+        rows.append(
+            f"""
+Asset ID: {asset.uniq_id}
+System: {asset.system}
+Manufacturer: {asset.manufacturer}
+Model: {asset.model}
+OS: {asset.os}
+Application: {asset.app}
+Security Zone: {asset.sec_zone}
+Protocols: {asset.comm_protocols}
+"""
+        )
+    return "\n".join(rows)
 
-vessel_context = None
-
-if query_type == "2":
-    region = get_menu_choice("Select Region/Flag State:", REGIONS)
-    vessel_type = get_menu_choice("Select Vessel Type:", VESSEL_TYPES)
-    while True:
-        class_society = get_menu_choice("Select Classification Society", CLASS_SOCIETIES)
-        if class_society_exists(class_society):
+def ask_inventory_question(question, records):
+    for asset in records:
+        asset_name = asset.uniq_id.lower()
+        if asset_name in question.lower():
+            matched_asset = find_asset(records, asset.uniq_id)
             break
-        else:
-            print(
-                f"\nNo documents have been loaded for "
-                f"{class_society}.\n"
-                "Please choose a supported classification society."
-            )
+    if matched_asset:
+        inv_context = build_asset_context(matched_asset)
+    else:
+        inv_context = "Asset specification information missing from inventory."
+    #once upgraded to a more sophisticated LLM, replace above with inv_context = build_inventory_context(records) to allow for greater variety of queries
+    prompt = f"""
+    
+    You are analysing an OT asset inventory.
 
-while True:
+    Inventory:
+    {inv_context}
 
-    question = input("Ask: ")
+    Question:
+    {question}
 
-    if question.lower() == "exit":
-        break
+    Answer ONLY using the inventory.
 
+    If information is missing, explicitly state that it is not present in the inventory.
+    """
+
+    inputs = tokenizer(prompt, return_tensors="pt", truncation=True, max_length=4096)
+    outputs = model.generate(**inputs, max_new_tokens=250)
+    return tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+def find_asset(records, asset_id):
+    asset_id = asset_id.lower()
+    for asset in records:
+        if asset.uniq_id.lower() == asset_id:
+            return asset
+    return None
+
+def build_asset_context(asset):
+    return f"""
+    Asset ID: {asset.uniq_id}
+    Ship System: {asset.ship_sys}
+    System: {asset.system}
+    Manufacturer: {asset.manufacturer}
+    Model: {asset.model}
+    Operating System: {asset.os}
+    Firmware: {asset.firmware}
+    Application: {asset.app}
+    Security Zone: {asset.sec_zone}
+    Function: {asset.function}
+    Suc: {asset.suc}
+    Communication Protocols: {asset.comm_protocols}
+    """
+
+print("\nTechnical Standards Copilot")
+print("Type 'exit' to quit.\n")
+print("Select Mode:")
+print("1. Standards & Requirements Q&A")
+print("2. Asset Inventory Analysis")
+mode = ""
+
+while mode not in ["1", "2"]:
+    mode = input("\nOption: ").strip()
+
+if mode == "1":
+    vessel_context = None
+    print("\nQuery Type:")
+    print("1. General Standards Inquiry")
+    print("2. Vessel-Specific Requirements")
+
+    query_type = ""
+
+    while query_type not in ["1", "2"]:
+        query_type = input("\nOption: ").strip()
+
+    vessel_context = None
+
+    if query_type == "2":
+        region = get_menu_choice("Select Region/Flag State:", REGIONS)
+        vessel_type = get_menu_choice("Select Vessel Type:", VESSEL_TYPES)
+        while True:
+            class_society = get_menu_choice("Select Classification Society", CLASS_SOCIETIES)
+            if class_society_exists(class_society):
+                break
+            else:
+                print(
+                    f"\nNo documents have been loaded for "
+                    f"{class_society}.\n"
+                    "Please choose a supported classification society."
+                )
+            vessel_context = {
+                "region": region,
+                "vessel_type": vessel_type,
+                "classification_society": class_society
+            }
+    while True:
+        question = input("Ask: ")
+        if question.lower() == "exit":
+            break
+        try:
+            answer = ask_standards_question(question, vessel_context)
+            print("\n" + answer + "\n")
+        except Exception as e:
+
+            print(f"\nError: {e}\n")
+elif mode == "2":
     try:
-
-        answer = ask_question(question, vessel_context)
-        print("\n" + answer + "\n")
-
+        records = load_uploaded_inventory()
     except Exception as e:
+        print(f"\nInventory Load Error: {e}\n")
+        raise SystemExit()
+    print("\nInventory Analysis Mode")
+    print("Type 'exit' to quit.\n")
 
-        print(f"\nError: {e}\n")
+    while True:
+        question = input("\nInventory Question: ")
+        if question.lower() == "exit":
+            break
+        try:
+            answer = ask_inventory_question(question, records)
+            print("\n" + answer + "\n")
+        except Exception as e:
+            print(f"\nError: {e}\n")
+
+
+
+
+
+

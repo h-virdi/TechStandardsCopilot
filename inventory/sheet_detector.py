@@ -60,7 +60,7 @@ def find_inventory_sheet(workbook):
 
     for sheet_name, df in workbook.items():
         score = score_sheet(df, sheet_name)
-        print(f"Sheet: {sheet_name}, Score: {score}")
+        # print(f"Sheet: {sheet_name}, Score: {score}")
         if score > best_score:
             best_score = score
             best_sheet = sheet_name
