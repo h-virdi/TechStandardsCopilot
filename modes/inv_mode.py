@@ -105,6 +105,10 @@ def run_mode_2():
                         f"\nAsset with ID '{asset_id}' not found."
                     )
                     continue
+
+                print("\nDEBUG ASSET")
+
+                print(vars(matched_asset))
                 result = validate_asset_record(matched_asset)
                 taxonomy = result["taxonomy"]
 
