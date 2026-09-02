@@ -4,6 +4,12 @@ import json
 from pandas import col
 
 COLUMN_ALIASES = {
+    "comp_desc": [
+        "Component description",
+        "Asset Type",
+        "Equipment Type",
+        "Device Type"
+    ],
     "ship_sys": [
         "Ship functions and systems",
         "System Owner",

@@ -2,8 +2,7 @@ from dataclasses import dataclass
 
 @dataclass
 class AssetRecord:
-
-    
+    comp_desc: str
     ship_sys: str
     system: str
     equipment: str

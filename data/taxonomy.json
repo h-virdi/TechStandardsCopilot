@@ -1,0 +1,73 @@
+{
+    "Main PLC Module Power Supply": {
+        "ship_system": "Control System",
+        "category": "PLC Module",
+        "subcategory": "Power Supply"
+    },
+    "Main PLC CPU": {
+        "ship_system": "Control System",
+        "category": "PLC Module",
+        "subcategory": "Processor"
+    },
+    "PLC Network Module": {
+        "ship_system": "Control System",
+        "category": "PLC Module",
+        "subcategory": "Communications"
+    },
+    "PLC 32Ch Digital Input": {
+        "ship_system": "Control System",
+        "category": "PLC Module",
+        "subcategory": "Digital Input"
+    },
+    "PLC 32Ch Digital Output": {
+        "ship_system": "Control System",
+        "category": "PLC Module",
+        "subcategory": "Digital Output"
+    },
+    "PLC Analog Input": {
+        "ship_system": "Control System",
+        "category": "PLC Module",
+        "subcategory": "Analog Input"
+    },
+    "Rack Transaction Controller": {
+        "ship_system": "Control System",
+        "category": "Controller",
+        "subcategory": "Rack Transaction Controller"
+    },
+    "Omega 5000 Server": {
+        "ship_system": "Servers & Workstations",
+        "category": "Server",
+        "subcategory": "Application Server"
+    },
+    "Scada Server / Workstation": {
+        "ship_system": "Servers & Workstations",
+        "category": "Workstation",
+        "subcategory": "SCADA"
+    },
+    "Unmanaged Network Switch": {
+        "ship_system": "Network Infrastructure",
+        "category": "Switch",
+        "subcategory": "Unmanaged Switch"
+        },
+    "Serial to Ethernet Modbus Gateway": {
+        "ship_system": "Network Infrastructure",
+        "category": "Gateway",
+        "subcategory": "Protocol Gateway"
+        },
+    "Terminal Server": {
+        "ship_system": "Network Infrastructure",
+        "category": "Terminal Server",
+        "subcategory": "Serial Communications"
+        },
+    "FO to Ethernet Converter": {
+        "ship_system": "Communications Infrastructure",
+        "category": "Media Converter",
+        "subcategory": "Fibre-to-Ethernet"
+        },
+    "FO to Serial Converter": {
+        "ship_system": "Communications Infrastructure",
+        "category": "Media Converter",
+        "subcategory": "Fibre-to-Serial"
+        }
+    }
+
