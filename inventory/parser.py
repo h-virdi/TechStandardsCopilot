@@ -71,6 +71,7 @@ def parse_sheet(df, sheet_name):
     id_col = find_column(data, COLUMN_ALIASES["uniq_id"])
     if id_col is None:
         return records
+    comp_desc_col = find_column(data, COLUMN_ALIASES["comp_desc"])
     ship_sys_col = find_column(data, COLUMN_ALIASES["ship_sys"])
     system_col = find_column(data, COLUMN_ALIASES["system"])
     equipment_col = find_column(data, COLUMN_ALIASES["equipment"])
@@ -154,8 +155,11 @@ def parse_sheet(df, sheet_name):
             #         "OS Information (incl. firmware) Version Number",
             #         "NOT FOUND"
             #     ))
-
+        comp_desc = str(row.get(comp_desc_col, "")).strip()
+        if (not comp_desc or comp_desc.lower() == "nan"):
+            comp_desc = ""
         record = AssetRecord(
+            comp_desc=comp_desc,
             ship_sys=str(row.get(ship_sys_col, "")),
             system=str(row.get(system_col, "")),
             equipment=str(row.get(equipment_col, "")),

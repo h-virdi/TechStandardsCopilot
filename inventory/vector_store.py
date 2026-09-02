@@ -8,6 +8,7 @@ embeddings = HuggingFaceEmbeddings()
 
 def asset_to_text(asset):
     return f"""
+Component Description: {asset.comp_desc}
 Asset ID: {asset.uniq_id}
 Ship System: {asset.ship_sys}
 System: {asset.system}

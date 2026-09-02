@@ -1,0 +1,13 @@
+{
+    "Main PLC Module Power Supply": {
+        "ship_system": "Control System",
+        "category": "PLC Module",
+        "subcategory": "Power Supply"
+    },
+    "Main PLC CPU": {
+        "ship_system": "Control System",
+        "category": "PLC Module",
+        "subcategory": "Processor"
+    }
+}
+
