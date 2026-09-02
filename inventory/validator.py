@@ -1,4 +1,7 @@
 from inventory.history import (get_asset_profile, get_most_common)
+from inventory.taxonomy import get_taxonomy
+from inventory.rules import validate_asset
+from inventory.statistics import validate_statistics
 
 def check_missing_fields(asset):
     findings = []
@@ -48,3 +51,13 @@ def validate_inventory(records):
                 "findings": asset_findings
             })
     return findings
+
+def classify_assets(asset):
+    return get_taxonomy(asset.comp_desc)
+
+def validate_asset_record(asset):
+    findings = []
+    taxonomy = get_taxonomy(asset.comp_desc)
+    findings.extend(validate_asset(asset))
+    findings.extend(validate_statistics(asset))
+    return {"taxonomy": taxonomy, "findings": findings}
