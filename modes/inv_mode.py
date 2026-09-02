@@ -8,6 +8,8 @@ from inventory.vector_store import (create_inventory_db, retrieve_assets, build_
 
 from inventory.taxonomy import get_taxonomy
 
+from inventory.validator import validate_asset_record
+
 tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-base")
 model = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-base")
 
@@ -80,6 +82,32 @@ def run_mode_2():
             break
 
         try:
+
+            if question.lower().startswith("validate"):
+
+                parts = question.split(maxsplit=1)
+
+                if len(parts) < 2:
+
+                    print(
+                        "\nUsage: validate <asset_id>"
+                    )
+
+                    continue
+                asset_id = parts[1].strip()
+                matched_asset = None
+                for asset in records:
+                    if (asset.uniq_id.lower() == asset_id.lower()):
+                        matched_asset = asset
+                        break
+                if not matched_asset:
+                    print(
+                        f"\nAsset with ID '{asset_id}' not found."
+                    )
+                    continue
+                result = validate_asset_record(matched_asset)
+                print(result)
+                continue
 
             answer = ask_inventory_question(
                 question,
