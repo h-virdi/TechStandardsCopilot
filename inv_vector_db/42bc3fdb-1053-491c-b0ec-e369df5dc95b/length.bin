@@ -1,1 +1,19 @@
-INSERT INTO "embedding_metadata" ("id", "key", "string_value", "int_value", "float_value", "bool_value") VALUES (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?) ON CONFLICT ("id", "key") DO UPDATE SET "string_value" = "excluded"."string_value", "int_value" = "excluded"."int_value", "float_value" = "excluded"."float_value", "bool_value" = "excluded"."bool_value"ÿÿÿÿÿÿÿ
+
+Component Description: Scada server / workstation
+Asset ID: Scada Workstation1
+Ship System: Terminal Manager
+System: TBG-FAR
+Equipment: 
+Manufacturer: Dell Optiplex 7020
+Model: Dell Optiplex 7020
+OS: Windows 10 Windows 10  Pro
+Firmware: 
+Application: 
+Security Zone: 
+Function: 
+Suc: 
+Untrusted Network: 
+Physical Interfaces: 
+Communication Protocols: 
+Negligible Risk: False
+Has TA Certification: F
