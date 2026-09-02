@@ -106,7 +106,28 @@ def run_mode_2():
                     )
                     continue
                 result = validate_asset_record(matched_asset)
-                print(result)
+                taxonomy = result["taxonomy"]
+
+                findings = result["findings"]
+
+                print("\nClassification")
+
+                for key, value in taxonomy.items():
+
+                    print(f"{key}: {value}")
+
+                print("\nFindings")
+
+                if not findings:
+
+                    print("No issues detected.")
+
+                else:
+
+                    for finding in findings:
+
+                        print(finding)
+
                 continue
 
             answer = ask_inventory_question(

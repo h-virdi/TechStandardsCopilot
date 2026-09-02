@@ -60,4 +60,4 @@ def validate_asset_record(asset):
     taxonomy = get_taxonomy(asset.comp_desc)
     findings.extend(validate_asset(asset))
     findings.extend(validate_statistics(asset))
-    return {"taxonomty": taxonomy, "findings": findings}
+    return {"taxonomy": taxonomy, "findings": findings}
